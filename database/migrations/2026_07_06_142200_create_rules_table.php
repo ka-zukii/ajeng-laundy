@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('rules', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('penyakit_id')->constrained('penyakit_node')->cascadeOnDelete();
+            $table->foreignId('penyakit_noda_id')->constrained('penyakit_noda')->cascadeOnDelete();
             $table->foreignId('gejala_id')->constrained('gejala')->cascadeOnDelete();
             $table->decimal('cf_pakar');
             $table->timestamps();

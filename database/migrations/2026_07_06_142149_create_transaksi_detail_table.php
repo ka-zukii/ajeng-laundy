@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaksi_id')->constrained('transaksi')->cascadeOnDelete();
             $table->foreignId('layanan_id')->nullable()->constrained('layanan')->noActionOnDelete();
-            $table->foreignId('penyakit_id')->nullable()->constrained('penyakit_noda')->noActionOnDelete();
+            $table->foreignId('penyakit_noda_id')->nullable()->constrained('penyakit_noda')->noActionOnDelete();
             $table->integer('berat')->nullable();
             $table->integer('jumlah')->nullable();
             $table->timestamps();

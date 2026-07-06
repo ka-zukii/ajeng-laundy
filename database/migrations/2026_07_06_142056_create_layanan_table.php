@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TipeLayanan;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,9 @@ return new class extends Migration
     {
         Schema::create('layanan', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_layanan');
+            $table->enum('tipe_layanan', array_map(fn($tipeLayanan) => $tipeLayanan->value, TipeLayanan::cases()));
+            $table->decimal('biaya_layanan');
             $table->timestamps();
         });
     }
