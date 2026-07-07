@@ -4,16 +4,18 @@ namespace App\Enums;
 
 enum TipeLayanan: string
 {
-    case DAILYKILOAN = 'daily_kiloan';
-    case DAILYSATUAN = 'daily_satuan';
-    case SETRIKAKILOAN = 'setrika_kiloan';
+    case EXPRESS = 'express';
+    case ONEDAY = 'one_day';
+    case QUICK = 'quick';
+    case REGULAR = 'regular';
 
     public function label(): string
     {
         return match ($this) {
-            self::DAILYKILOAN => 'Daily Kiloan',
-            self::DAILYSATUAN => 'Daily Satuan',
-            self::SETRIKAKILOAN => 'Setrika Kiloan'
+            self::EXPRESS => 'express',
+            self::ONEDAY => 'one_day',
+            self::QUICK => 'quick',
+            self::REGULAR => 'regular'
         };
     }
 
