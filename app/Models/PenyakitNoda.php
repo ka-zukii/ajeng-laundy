@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PenyakitNoda extends Model
 {
@@ -12,4 +13,14 @@ class PenyakitNoda extends Model
         'solusi',
         'biaya_tambahan',
     ];
+
+    public function rule(): HasMany
+    {
+        return $this->hasMany(Rule::class);
+    }
+
+    public function transaksiDetail(): HasMany
+    {
+        return $this->hasMany(TransaksiDetail::class);
+    }
 }

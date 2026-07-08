@@ -5,21 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TransaksiDetail extends Model
+class Rule extends Model
 {
-    protected $table = 'transaksi_detail';
+    protected $table = 'rules';
     protected $fillable = [
-        'transaksi_id',
-        'layanan_id',
-        'penyakit_id',
         'penyakit_noda_id',
-        'berat',
-        'jumlah',
+        'gejala_id',
+        'cf_pakar',
     ];
 
-    public function transaksi(): BelongsTo
+    public function gejala(): BelongsTo
     {
-        return $this->belongsTo(Transaksi::class);
+        return $this->belongsTo(Gejala::class);
     }
 
     public function penyakitNoda(): BelongsTo

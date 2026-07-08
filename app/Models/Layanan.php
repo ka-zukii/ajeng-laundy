@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Layanan extends Model
 {
@@ -12,4 +13,9 @@ class Layanan extends Model
         'tipe_layanan',
         'biaya_layanan',
     ];
+
+    public function transaksiDetail(): HasMany
+    {
+        return $this->hasMany(TransaksiDetail::class);
+    }
 }
