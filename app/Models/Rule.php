@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[Fillable([
+    'penyakit_noda_id',
+    'gejala_id',
+    'cf_pakar',
+])]
 class Rule extends Model
 {
     protected $table = 'rules';
-    protected $fillable = [
-        'penyakit_noda_id',
-        'gejala_id',
-        'cf_pakar',
-    ];
 
     public function gejala(): BelongsTo
     {
