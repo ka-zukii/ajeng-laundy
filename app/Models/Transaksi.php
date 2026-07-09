@@ -2,21 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+#[Fillable([
+    'users_id',
+    'kode_transaksi',
+    'tanggal_masuk',
+    'tanggal_selesai',
+    'status_laundry',
+    'total_biaya',
+])]
 class Transaksi extends Model
 {
     protected $table = 'transaksi';
-    protected $fillable = [
-        'users_id',
-        'kode_transaksi',
-        'tanggal_masuk',
-        'tanggal_selesai',
-        'status_laundry',
-        'total_biaya',
-    ];
 
     public function user(): BelongsTo
     {

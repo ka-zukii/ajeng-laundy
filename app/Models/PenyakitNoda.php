@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+#[Fillable([
+    'nama_penyakit',
+    'solusi',
+    'biaya_tambahan',
+])]
 class PenyakitNoda extends Model
 {
     protected $table = 'penyakit_noda';
-    protected $fillable = [
-        'nama_penyakit',
-        'solusi',
-        'biaya_tambahan',
-    ];
 
     public function rule(): HasMany
     {
