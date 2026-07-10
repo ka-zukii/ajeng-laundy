@@ -1,0 +1,249 @@
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+@import "../../../../vendor/filament/filament/resources/css/theme.css";
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+@source '../../../../vendor/filament/**/*.blade.php';
+
+@theme {
+    --color-primary-50: #fff5f8;
+    --color-primary-100: #ffe4ec;
+    --color-primary-200: #ffc9d8;
+    --color-primary-300: #ffabc2;
+    --color-primary-400: #ff8daa;
+    --color-primary-500: #ff7797;
+    --color-primary-600: #ff5d86;
+    --color-primary-700: #eb3f6d;
+    --color-primary-800: #c52d56;
+    --color-primary-900: #992446;
+}
+
+html,
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #fff8fb;
+}
+
+* {
+    transition:
+        background-color 0.2s,
+        border-color 0.2s,
+        box-shadow 0.2s,
+        color 0.2s,
+        transform 0.2s;
+}
+
+/* ---------- Sidebar ---------- */
+
+.fi-sidebar {
+    margin: 16px;
+    height: calc(100vh - 32px);
+    border-radius: 24px;
+    border: 1px solid #fde7ef;
+    background: #fff;
+    box-shadow: 0 16px 40px rgba(255, 119, 151, 0.08);
+}
+
+.fi-sidebar-item-button {
+    border-radius: 14px;
+}
+
+.fi-sidebar-item-button:hover {
+    background: #fff5f8;
+}
+
+.fi-sidebar-item-active > .fi-sidebar-item-button {
+    background: linear-gradient(90deg, #fff0f5, #fff) !important;
+    color: #ff7797 !important;
+    font-weight: 700;
+}
+
+.fi-sidebar-group-label {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+}
+
+/* ---------- Topbar ---------- */
+
+.fi-topbar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid #fde7ef;
+}
+
+/* ---------- Main ---------- */
+
+.fi-main {
+    padding: 20px;
+}
+
+/* ---------- Cards ---------- */
+
+.fi-section,
+.fi-card,
+.fi-modal-window,
+.fi-ta-table {
+    border-radius: 22px !important;
+    border: 1px solid #fde7ef;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(255, 119, 151, 0.05);
+}
+
+/* ---------- Widgets ---------- */
+
+.fi-wi-stats-overview-stat {
+    border: none;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(255, 119, 151, 0.06);
+}
+
+.fi-wi-stats-overview-stat:hover {
+    transform: translateY(-4px);
+}
+
+/* ---------- Table ---------- */
+
+.fi-ta-header {
+    background: #fff8fb;
+}
+
+.fi-ta-row:hover {
+    background: #fff5f8;
+}
+
+/* ---------- Buttons ---------- */
+
+.fi-btn {
+    min-height: 44px;
+    border-radius: 14px;
+    font-weight: 600;
+}
+
+.fi-btn-color-primary {
+    box-shadow: 0 10px 24px rgba(255, 119, 151, 0.18);
+}
+
+.fi-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* ---------- Inputs ---------- */
+
+.fi-input,
+.fi-select-input,
+.fi-textarea {
+    border-radius: 14px !important;
+}
+
+.fi-input:focus,
+.fi-select-input:focus,
+.fi-textarea:focus {
+    border-color: #ff7797 !important;
+    box-shadow: 0 0 0 4px rgba(255, 119, 151, 0.15) !important;
+}
+
+/* ---------- Badge ---------- */
+
+.fi-badge {
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+/* ---------- Login ---------- */
+
+.fi-simple-main {
+    max-width: 480px;
+}
+
+.fi-simple-main-ctn {
+    background:
+        radial-gradient(circle at top left, #ffe7ef 0%, transparent 30%),
+        radial-gradient(circle at bottom right, #ffdbe6 0%, transparent 25%),
+        #fff8fb;
+}
+
+/* ---------- Scrollbar ---------- */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffc7d6;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff92ae;
+}
+
+/* ---------- Dark Mode ---------- */
+
+.dark body,
+.dark {
+    background: #0f1117;
+}
+
+.dark .fi-sidebar {
+    background: #181c25;
+    border-color: #2b3240;
+    box-shadow: none;
+}
+
+.dark .fi-sidebar-item-button:hover {
+    background: #242b36;
+}
+
+.dark .fi-sidebar-item-active > .fi-sidebar-item-button {
+    background: linear-gradient(90deg, #3d2030, #2b2430) !important;
+    color: #ff92ae !important;
+}
+
+.dark .fi-topbar {
+    background: rgba(24, 28, 37, 0.85);
+    border-color: #2b3240;
+}
+
+.dark .fi-section,
+.dark .fi-card,
+.dark .fi-modal-window,
+.dark .fi-ta-table,
+.dark .fi-wi-stats-overview-stat {
+    background: #181c25;
+    border-color: #2b3240;
+    box-shadow: none;
+}
+
+.dark .fi-ta-header {
+    background: #202632;
+}
+
+.dark .fi-ta-row:hover {
+    background: #232a36;
+}
+
+.dark .fi-input,
+.dark .fi-select-input,
+.dark .fi-textarea {
+    background: #11151d;
+    border-color: #2b3240;
+}
+
+.dark .fi-simple-main-ctn {
+    background:
+        radial-gradient(circle at top left, #2b2430 0%, transparent 30%),
+        radial-gradient(circle at bottom right, #351d28 0%, transparent 25%),
+        #0f1117;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+}
