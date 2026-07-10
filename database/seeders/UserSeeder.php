@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -21,7 +22,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('admin123'),
             'nomor_telepon' => '081234567890',
             'alamat' => 'Jl. Kemerdekaan No. 123, Kota Surakarta, Jawa Tengah',
-            'role' => 'admin',
+            'role' => UserRole::OWNER->value,
         ]);
 
         // Karyawan
@@ -31,12 +32,12 @@ class UserSeeder extends Seeder
             'password' => Hash::make('karyawan123'),
             'nomor_telepon' => '081234567891',
             'alamat' => 'Jl. Imam Bonjol No. 456, Kota Jakarta, DKI Jakarta',
-            'role' => 'karyawan',
+            'role' => UserRole::KARYAWAN->value,
         ]);
 
         // Pelanggan
         User::factory(10)->create([
-            'role' => 'pelanggan',
+            'role' => UserRole::PELANGGAN->value,
         ]);
     }
 }
