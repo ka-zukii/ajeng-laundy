@@ -27,10 +27,19 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
+            ->brandName('Ajeng Laundry')
+            ->brandLogo(asset('assets/logo-rectangle.png'))
+            ->brandLogoHeight('3rem')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#FF7797',
+                'success' => '#22C55E',
+                'warning' => '#F59E0B',
+                'danger'  => '#EF4444',
+                'info'    => '#3B82F6',
             ])
+            ->sidebarCollapsibleOnDesktop()
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
