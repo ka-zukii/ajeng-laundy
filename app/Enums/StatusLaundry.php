@@ -13,14 +13,25 @@ enum StatusLaundry: string
         return match ($this) {
             self::SELESAI => 'Selesai',
             self::DIPROSES => 'Diproses',
-            self::PENDING => 'Pending'
+            self::PENDING => 'Pending',
+        };
+    }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::SELESAI => 'success',
+            self::DIPROSES => 'info',
+            self::PENDING => 'warning',
         };
     }
 
     public static function options(): array
     {
-        return collect(self::cases())->mapWithKeys(fn(self $statusLaundry) => [
-            $statusLaundry->value => $statusLaundry->label()
-        ])->toArray();
+        return collect(self::cases())
+            ->mapWithKeys(fn (self $status) => [
+                $status->value => $status->label(),
+            ])
+            ->toArray();
     }
 }

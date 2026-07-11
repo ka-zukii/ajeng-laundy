@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\StatusLaundry;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Transaksi extends Model
 {
     protected $table = 'transaksi';
+
+    public function casts(): array
+    {
+        return [
+            'status_laundry' => StatusLaundry::class
+        ];
+    }
 
     public function user(): BelongsTo
     {
