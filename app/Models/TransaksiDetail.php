@@ -22,6 +22,11 @@ class TransaksiDetail extends Model
         return $this->belongsTo(Transaksi::class);
     }
 
+    public function layanan(): BelongsTo
+    {
+        return $this->belongsTo(Layanan::class);
+    }
+
     public function penyakitNoda(): BelongsTo
     {
         return $this->belongsTo(PenyakitNoda::class);
