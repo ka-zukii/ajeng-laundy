@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Enums\StatusLaundry;
+use App\Services\TransaksiService;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
-    'users_id',
+    'user_id',
     'kode_transaksi',
     'tanggal_masuk',
     'tanggal_selesai',
@@ -27,9 +28,17 @@ class Transaksi extends Model
         ];
     }
 
-    public function user(): BelongsTo
+    protected static function booted(): void
     {
-        return $this->belongsTo(User::class);
+        static::creating(function (Transaksi $transaksi) {
+            $transaksi->kode_transaksi = app(TransaksiService::class)
+                ->generateTransactionCode();
+        });
+    }
+
+    public function pelanggan(): BelongsTo
+    {
+        return $this->belongsTo(Pelanggan::class);
     }
 
     public function transaksiDetail(): HasOne
