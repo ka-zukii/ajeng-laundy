@@ -6,6 +6,7 @@ use App\Enums\StatusLaundry;
 use App\Enums\UserRole;
 use App\Models\Transaksi;
 use App\Models\User;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Number;
@@ -16,14 +17,14 @@ class StatsOverview extends StatsOverviewWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Total Pengguna', User::query()->where('role', UserRole::PELANGGAN->value)->count('id'))
+            Stat::make('Total Pengguna', User::where('role', UserRole::PELANGGAN)->count())
                 ->description('Jumlah total pengguna yang terdaftar di sistem.')
-                ->descriptionIcon('heroicon-o-users')
+                ->descriptionIcon(Heroicon::User)
                 ->color('primary'),
 
             Stat::make('Transaksi', Transaksi::query()->count('id'))
                 ->description('Jumlah total transaksi yang telah dilakukan.')
-                ->descriptionIcon('heroicon-o-receipt-percent')
+                ->descriptionIcon(Heroicon::ReceiptPercent)
                 ->color('success'),
 
             Stat::make(
@@ -40,12 +41,12 @@ class StatsOverview extends StatsOverviewWidget
                 )
             )
                 ->description('Total pendapatan bulan ini.')
-                ->descriptionIcon('heroicon-o-banknotes')
+                ->descriptionIcon(Heroicon::Banknotes)
                 ->color('warning'),
 
-            Stat::make('Cucian Diproses', Transaksi::query()->whereStatusLaundry(StatusLaundry::DIPROSES)->count('id'))
+            Stat::make('Cucian Diproses', Transaksi::whereStatusLaundry(StatusLaundry::DIPROSES)->count())
                 ->description('Jumlah cucian yang sedang dalam proses.')
-                ->descriptionIcon('heroicon-o-sparkles')
+                ->descriptionIcon(Heroicon::Sparkles)
                 ->color('info'),
         ];
     }

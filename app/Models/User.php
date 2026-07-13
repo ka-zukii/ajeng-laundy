@@ -11,11 +11,11 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['nama', 'email', 'password', 'nomor_telepon', 'alamat', 'role'])]
+#[Fillable(['username', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements HasName
 {
@@ -32,24 +32,25 @@ class User extends Authenticatable implements HasName
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'role' => UserRole::class
         ];
     }
 
     public function getFilamentName(): string
     {
-        return $this->nama;
+        return $this->username;
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
             'owner' => in_array($this->role, [UserRole::OWNER->value, UserRole::KARYAWAN->value]),
-            'customer' => $this->role === UserRole::PELANGGAN->value,
+            // 'customer' => $this->role === UserRole::PELANGGAN->value,
         };
     }
 
-    public function transaksi(): HasMany
+    public function pelanggan(): HasOne
     {
-        return $this->hasMany(Transaksi::class);
+        return $this->hasOne(Pelanggan::class);
     }
 }
