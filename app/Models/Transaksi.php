@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
-    'user_id',
+    'pelanggan_id',
     'kode_transaksi',
     'tanggal_masuk',
     'tanggal_selesai',
@@ -24,7 +24,7 @@ class Transaksi extends Model
     public function casts(): array
     {
         return [
-            'status_laundry' => StatusLaundry::class
+            'status_laundry' => StatusLaundry::class,
         ];
     }
 

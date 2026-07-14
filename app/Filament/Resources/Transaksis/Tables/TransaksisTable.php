@@ -33,7 +33,7 @@ class TransaksisTable
                             return '-';
                         }
 
-                        return "{$layanan->nama_layanan} ({$layanan->tipe_layanan})";
+                        return "{$layanan->nama_layanan} ({$layanan->tipe_layanan->label()})";
                     }),
 
                 TextColumn::make('total_biaya')

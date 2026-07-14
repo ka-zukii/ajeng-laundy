@@ -15,6 +15,12 @@ class PenyakitNoda extends Model
 {
     protected $table = 'penyakit_noda';
 
+    public static function options(): array
+    {
+        return static::pluck('nama_penyakit', 'id')
+            ->toArray();
+    }
+
     public function rule(): HasMany
     {
         return $this->hasMany(Rule::class);
