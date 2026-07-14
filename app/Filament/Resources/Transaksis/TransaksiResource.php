@@ -14,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use UnitEnum;
+use Illuminate\Database\Eloquent\Builder;
 
 class TransaksiResource extends Resource
 {
@@ -40,6 +41,17 @@ class TransaksiResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->with([
+                'pelanggan',
+                'transaksiDetail',
+                'transaksiDetail.layanan',
+                'transaksiDetail.penyakitNoda',
+            ]);
     }
 
     public static function getPages(): array

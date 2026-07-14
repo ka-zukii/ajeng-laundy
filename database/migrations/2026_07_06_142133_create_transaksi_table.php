@@ -14,12 +14,12 @@ return new class extends Migration
     {
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->nullable()->constrained('users')->noActionOnDelete();
+            $table->foreignId('pelanggan_id')->constrained('pelanggan')->cascadeOnDelete();
             $table->string('kode_transaksi')->unique();
-            $table->date('tanggal_masuk');
-            $table->date('tanggal_selesai');
+            $table->date('tanggal_masuk')->nullable()->default(now());
+            $table->date('tanggal_selesai')->nullable();
             $table->enum('status_laundry', array_map(fn($statusLaundry) => $statusLaundry->value, StatusLaundry::cases()))->nullable()->default(StatusLaundry::PENDING);
-            $table->decimal('total_biaya');
+            $table->decimal('total_biaya')->nullable();
             $table->timestamps();
         });
     }

@@ -15,23 +15,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Admin
+        // Owner
         User::factory()->create([
-            'nama' => 'Test Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('admin123'),
-            'nomor_telepon' => '081234567890',
-            'alamat' => 'Jl. Kemerdekaan No. 123, Kota Surakarta, Jawa Tengah',
+            'username' => 'owner',
+            'email' => 'owner@example.com',
+            'password' => Hash::make('owner123'),
             'role' => UserRole::OWNER->value,
         ]);
 
         // Karyawan
         User::factory()->create([
-            'nama' => 'Test Karyawan',
+            'username' => 'karyawan',
             'email' => 'karyawan@example.com',
             'password' => Hash::make('karyawan123'),
-            'nomor_telepon' => '081234567891',
-            'alamat' => 'Jl. Imam Bonjol No. 456, Kota Jakarta, DKI Jakarta',
             'role' => UserRole::KARYAWAN->value,
         ]);
 

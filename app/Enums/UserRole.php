@@ -23,4 +23,13 @@ enum UserRole: string
             $role->value => $role->label()
         ])->toArray();
     }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::OWNER => 'danger',
+            self::KARYAWAN => 'warning',
+            self::PELANGGAN => 'success'
+        };
+    }
 }
