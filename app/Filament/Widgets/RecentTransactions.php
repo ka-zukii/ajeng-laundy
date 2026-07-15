@@ -3,8 +3,10 @@
 namespace App\Filament\Widgets;
 
 use App\Enums\StatusLaundry;
+use App\Enums\StatusPembayaran;
 use App\Models\Transaksi;
 use Filament\Actions\BulkActionGroup;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
@@ -19,11 +21,15 @@ class RecentTransactions extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(Transaksi::query()->latest()->limit(10))
+            ->query(Transaksi::query()
+                ->with(['pelanggan', 'transaksiDetail.layanan', 'pembayaran'])
+                ->latest()->limit(10))
             ->columns([
                 TextColumn::make('kode_transaksi')
                     ->label('Kode Transaksi')
-                    ->searchable(),
+                    ->searchable()
+                    ->copyable()
+                    ->weight(FontWeight::Bold),
 
                 TextColumn::make('pelanggan.nama')
                     ->label('Pelanggan'),
@@ -44,6 +50,16 @@ class RecentTransactions extends TableWidget
                     ->color(
                         fn(StatusLaundry $state) => $state->color()
                     ),
+
+                TextColumn::make("pembayaran.status_pembayaran")
+                    ->label('Status Pembayaran')
+                    ->default(StatusPembayaran::MENGUNGGU)
+                    ->badge()
+                    ->formatStateUsing(fn (?StatusPembayaran $state) => $state?->label() ?? '-'),
+
+                TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
+                    ->date('d M Y')
             ])
             ->filters([
                 //

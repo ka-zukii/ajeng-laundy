@@ -19,11 +19,16 @@ class LayananResource extends Resource
 {
     protected static ?string $model = Layanan::class;
 
-    protected static ?int $navigationSort = 2;
-    protected static ?string $navigationLabel = 'Layanan';
+    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationLabel = 'Layanan Laundry';
     protected static string|UnitEnum|null $navigationGroup = 'Master Data';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Sparkles;
+
+     public static function getBreadcrumb(): string
+    {
+        return 'Layanan Laundry';
+    }
 
     public static function form(Schema $schema): Schema
     {

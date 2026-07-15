@@ -3,8 +3,7 @@
 namespace App\Filament\Resources\Transaksis\Pages;
 use Illuminate\Database\Eloquent\Model;
 use App\Filament\Resources\Transaksis\TransaksiResource;
-use App\Models\Transaksi;
-use App\Services\TransaksiService;
+use App\Services\Transaksi\TransactionService;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
@@ -29,7 +28,7 @@ class EditTransaksi extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        return app(TransaksiService::class)->update(
+        return app(TransactionService::class)->update(
             $record->id,
             $data,
         );
