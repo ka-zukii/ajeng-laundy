@@ -7,23 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
-    'nama_penyakit',
+    'nama_noda',
     'solusi',
     'biaya_tambahan',
 ])]
-class PenyakitNoda extends Model
+class NodaPakaian extends Model
 {
-    protected $table = 'penyakit_noda';
+    protected $table = 'noda_pakaian';
 
     public static function options(): array
     {
-        return static::pluck('nama_penyakit', 'id')
+        return static::pluck('nama_noda', 'id')
             ->toArray();
-    }
-
-    public function rule(): HasMany
-    {
-        return $this->hasMany(Rule::class);
     }
 
     public function transaksiDetail(): HasMany

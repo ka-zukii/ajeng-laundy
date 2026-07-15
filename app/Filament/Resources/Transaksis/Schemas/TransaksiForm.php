@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\Transaksis\Schemas;
 
 use App\Enums\JenisPerhitungan;
-use App\Models\User;
-use App\Models\PenyakitNoda;
 use App\Models\Layanan;
-use Filament\Forms\Components\Hidden;
+use App\Models\NodaPakaian;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Slider;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Grid;
@@ -71,7 +71,6 @@ class TransaksiForm
 
                         Grid::make(3)
                             ->schema([
-
                                 TextInput::make('nama_pelanggan')
                                     ->label('Nama')
                                     ->disabled()
@@ -100,14 +99,47 @@ class TransaksiForm
                             ->required()
                             ->live(),
 
-                        Select::make('penyakit_noda_id')
-                            ->label('Penyakit Noda')
-                            ->options(PenyakitNoda::options())
-                            ->searchable(),
+                        Select::make('noda_pakaian_id')
+                            ->label('Noda Pakaian')
+                            ->options(NodaPakaian::options())
+                            ->searchable()
+                            ->createOptionForm([
+                                TextInput::make('nama_noda')
+                                    ->label('Nama Noda')
+                                    ->required(),
 
+                                Textarea::make('solusi')
+                                    ->label('Solusi')
+                                    ->required(),
+
+                                TextInput::make('biaya_tambahan')
+                                    ->label('Biaya Tambahan')
+                                    ->numeric()
+                                    ->required(),
+                            ])
+                            ->createOptionUsing(function (array $data): int {
+                                return NodaPakaian::create($data)->id;
+                            })
+                            ->required(),
+
+                        Grid::make(12)
+                            ->schema([
+                                Slider::make('tingkat_kekotoran')
+                                    ->label('Tingkat Kekotoran')
+                                    ->minValue(0)
+                                    ->maxValue(100)
+                                    ->step(1)
+                                    ->default(50)
+                                    ->live()
+                                    ->columnSpan(10),
+
+                                Placeholder::make('nilai_kekotoran')
+                                    ->label('Nilai')
+                                    ->content(fn(Get $get) => ($get('tingkat_kekotoran') ?? 0) . '%')
+                                    ->columnSpan(2),
+                            ]),
                         TextInput::make('berat')
                             ->visible(function (Get $get) {
-
                                 $layanan = Layanan::find($get('layanan_id'));
 
                                 return $layanan?->jenis_perhitungan === JenisPerhitungan::KILOAN;
@@ -115,7 +147,6 @@ class TransaksiForm
 
                         TextInput::make('jumlah')
                             ->visible(function (Get $get) {
-
                                 $layanan = Layanan::find($get('layanan_id'));
 
                                 return $layanan?->jenis_perhitungan === JenisPerhitungan::SATUAN;

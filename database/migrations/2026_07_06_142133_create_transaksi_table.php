@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PrioritasLaundry;
 use App\Enums\StatusLaundry;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,8 +18,10 @@ return new class extends Migration
             $table->foreignId('pelanggan_id')->constrained('pelanggan')->cascadeOnDelete();
             $table->string('kode_transaksi')->unique();
             $table->date('tanggal_masuk')->nullable()->default(now());
+            $table->date('estimasi_selesai')->nullable();
             $table->date('tanggal_selesai')->nullable();
             $table->enum('status_laundry', array_map(fn($statusLaundry) => $statusLaundry->value, StatusLaundry::cases()))->nullable()->default(StatusLaundry::PENDING);
+            $table->enum('prioritas', array_map(fn($prioritas) => $prioritas->value, PrioritasLaundry::cases()))->nullable()->default(PrioritasLaundry::LOW);
             $table->decimal('total_biaya')->nullable();
             $table->timestamps();
         });

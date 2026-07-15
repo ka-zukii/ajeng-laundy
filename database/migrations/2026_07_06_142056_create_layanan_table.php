@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('layanan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_layanan');
-            $table->enum('tipe_layanan', array_map(fn($tipeLayanan) => $tipeLayanan->value, TipeLayanan::cases()));
             $table->enum('jenis_perhitungan', array_map(fn($jenis) => $jenis->value, JenisPerhitungan::cases()));
             $table->decimal('biaya_layanan');
             $table->timestamps();

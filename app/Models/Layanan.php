@@ -11,7 +11,6 @@ use Override;
 
 #[Fillable([
     'nama_layanan',
-    'tipe_layanan',
     'jenis_perhitungan',
     'biaya_layanan',
 ])]
@@ -22,7 +21,6 @@ class Layanan extends Model
     public function casts(): array
     {
         return [
-            'tipe_layanan' => TipeLayanan::class,
             'jenis_perhitungan' => JenisPerhitungan::class
         ];
     }
@@ -33,7 +31,7 @@ class Layanan extends Model
             ->get()
             ->mapWithKeys(fn(self $layanan) => [
                 $layanan->id =>
-                "{$layanan->nama_layanan} • {$layanan->tipe_layanan->label()}",
+                "{$layanan->nama_layanan}",
             ])
             ->toArray();
     }

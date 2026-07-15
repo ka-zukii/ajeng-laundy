@@ -36,7 +36,7 @@ class BestSellingServicesChart extends ChartWidget
             ],
 
             'labels' => $services
-                ->map(fn($service) => "{$service->nama_layanan}\n({$service->tipe_layanan->value})")
+                ->map(fn($service) => "{$service->nama_layanan}")
                 ->toArray(),
         ];
     }
