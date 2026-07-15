@@ -16,25 +16,6 @@ class LayananSeeder extends Seeder
             // Daily Kiloan
             [
                 'nama_layanan' => 'Daily Kiloan',
-                'tipe_layanan' => TipeLayanan::EXPRESS,
-                'jenis_perhitungan' => JenisPerhitungan::KILOAN,
-                'biaya_layanan' => 15000,
-            ],
-            [
-                'nama_layanan' => 'Daily Kiloan',
-                'tipe_layanan' => TipeLayanan::ONEDAY,
-                'jenis_perhitungan' => JenisPerhitungan::KILOAN,
-                'biaya_layanan' => 12000,
-            ],
-            [
-                'nama_layanan' => 'Daily Kiloan',
-                'tipe_layanan' => TipeLayanan::QUICK,
-                'jenis_perhitungan' => JenisPerhitungan::KILOAN,
-                'biaya_layanan' => 25000,
-            ],
-            [
-                'nama_layanan' => 'Daily Kiloan',
-                'tipe_layanan' => TipeLayanan::REGULAR,
                 'jenis_perhitungan' => JenisPerhitungan::KILOAN,
                 'biaya_layanan' => 8000,
             ],
@@ -42,25 +23,6 @@ class LayananSeeder extends Seeder
             // Daily Satuan
             [
                 'nama_layanan' => 'Daily Satuan',
-                'tipe_layanan' => TipeLayanan::EXPRESS,
-                'jenis_perhitungan' => JenisPerhitungan::SATUAN,
-                'biaya_layanan' => 10000,
-            ],
-            [
-                'nama_layanan' => 'Daily Satuan',
-                'tipe_layanan' => TipeLayanan::ONEDAY,
-                'jenis_perhitungan' => JenisPerhitungan::SATUAN,
-                'biaya_layanan' => 8000,
-            ],
-            [
-                'nama_layanan' => 'Daily Satuan',
-                'tipe_layanan' => TipeLayanan::QUICK,
-                'jenis_perhitungan' => JenisPerhitungan::SATUAN,
-                'biaya_layanan' => 15000,
-            ],
-            [
-                'nama_layanan' => 'Daily Satuan',
-                'tipe_layanan' => TipeLayanan::REGULAR,
                 'jenis_perhitungan' => JenisPerhitungan::SATUAN,
                 'biaya_layanan' => 5000,
             ],
@@ -68,30 +30,9 @@ class LayananSeeder extends Seeder
             // Setrika Kiloan
             [
                 'nama_layanan' => 'Setrika Kiloan',
-                'tipe_layanan' => TipeLayanan::EXPRESS,
                 'jenis_perhitungan' => JenisPerhitungan::KILOAN,
                 'biaya_layanan' => 12000,
-            ],
-            [
-                'nama_layanan' => 'Setrika Kiloan',
-                'tipe_layanan' => TipeLayanan::ONEDAY,
-                'jenis_perhitungan' => JenisPerhitungan::KILOAN,
-                'biaya_layanan' => 10000,
-            ],
-            [
-                'nama_layanan' => 'Setrika Kiloan',
-                'tipe_layanan' => TipeLayanan::QUICK,
-                'jenis_perhitungan' => JenisPerhitungan::KILOAN,
-                'biaya_layanan' => 15000,
-            ],
-            [
-                'nama_layanan' => 'Setrika Kiloan',
-                'tipe_layanan' => TipeLayanan::REGULAR,
-                'jenis_perhitungan' => JenisPerhitungan::KILOAN,
-                'biaya_layanan' => 5000,
-            ],
-
-            // 
+            ]
         ];
 
         foreach ($layanan as $item) {

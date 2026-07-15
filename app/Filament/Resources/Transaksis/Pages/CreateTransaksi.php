@@ -15,4 +15,9 @@ class CreateTransaksi extends CreateRecord
     {
         return app(TransaksiService::class)->create($data);
     }
+
+    public function getTitle(): string
+    {
+        return 'Tambah Transaksi Laundry';
+    }
 }

@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 #[Fillable([
     'transaksi_id',
     'layanan_id',
-    'penyakit_noda_id',
+    'noda_pakaian_id',
     'berat',
     'jumlah',
+    'tingkat_kekotoran'
 ])]
 class TransaksiDetail extends Model
 {
@@ -27,8 +28,8 @@ class TransaksiDetail extends Model
         return $this->belongsTo(Layanan::class);
     }
 
-    public function penyakitNoda(): BelongsTo
+    public function nodaPakaian(): BelongsTo
     {
-        return $this->belongsTo(PenyakitNoda::class);
+        return $this->belongsTo(NodaPakaian::class);
     }
 }

@@ -18,7 +18,8 @@ class EditTransaksi extends EditRecord
 
         if ($detail) {
             $data['layanan_id'] = $detail->layanan_id;
-            $data['penyakit_noda_id'] = $detail->penyakit_noda_id;
+            $data['noda_pakaian_id'] = $detail->noda_pakaian_id;
+            $data['tingkat_kekotoran'] = $detail->tingkat_kekotoran;
             $data['berat'] = $detail->berat;
             $data['jumlah'] = $detail->jumlah;
         }
@@ -39,5 +40,10 @@ class EditTransaksi extends EditRecord
         return [
             DeleteAction::make(),
         ];
+    }
+
+    public function getTitle(): string
+    {
+        return 'Edit Transaksi Laundry';
     }
 }

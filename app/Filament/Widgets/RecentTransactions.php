@@ -25,7 +25,7 @@ class RecentTransactions extends TableWidget
                     ->label('Kode Transaksi')
                     ->searchable(),
 
-                TextColumn::make('user.nama')
+                TextColumn::make('pelanggan.nama')
                     ->label('Pelanggan'),
 
                 TextColumn::make('transaksiDetail.layanan.nama_layanan')
@@ -36,7 +36,7 @@ class RecentTransactions extends TableWidget
                     ->money('IDR'),
 
                 TextColumn::make('status_laundry')
-                    ->label('Status')
+                    ->label('Status Laundry')
                     ->badge()
                     ->formatStateUsing(
                         fn(StatusLaundry $state) => $state->label()

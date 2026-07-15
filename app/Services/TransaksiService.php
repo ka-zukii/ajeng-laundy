@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Enums\JenisPerhitungan;
 use App\Enums\StatusLaundry;
 use App\Models\Layanan;
-use App\Models\PenyakitNoda;
+use App\Models\NodaPakaian;
 use App\Models\Transaksi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +28,7 @@ class TransaksiService
 
     public function calculateTotal(
         Layanan $layanan,
-        ?PenyakitNoda $penyakitNoda,
+        ?NodaPakaian $nodaPakaian,
         array $data,
     ): float {
 
@@ -41,7 +41,7 @@ class TransaksiService
             $layanan->biaya_layanan * ($data['jumlah'] ?? 0),
         };
 
-        return $subtotal + ($penyakitNoda?->biaya_tambahan ?? 0);
+        return $subtotal + ($nodaPakaian?->biaya_tambahan ?? 0);
     }
 
     private function prepareTransaction(
@@ -51,21 +51,19 @@ class TransaksiService
 
         $layanan = Layanan::findOrFail($data['layanan_id']);
 
-        $penyakitNoda = ! empty($data['penyakit_noda_id'])
-            ? PenyakitNoda::find($data['penyakit_noda_id'])
+        $nodaPakaian = ! empty($data['noda_pakaian_id'])
+            ? NodaPakaian::find($data['noda_pakaian_id'])
             : null;
 
         return [
 
             'layanan' => $layanan,
 
-            'tanggal_selesai' => $layanan
-                ->tipe_layanan
-                ->estimatedCompletion($tanggalMasuk),
-
+            'tanggal_selesai' => $tanggalMasuk,
+            
             'total' => $this->calculateTotal(
                 $layanan,
-                $penyakitNoda,
+                $nodaPakaian,
                 $data,
             ),
 
@@ -94,7 +92,8 @@ class TransaksiService
 
             $transaksi->transaksiDetail()->create([
                 'layanan_id'       => $data['layanan_id'],
-                'penyakit_noda_id' => $data['penyakit_noda_id'],
+                'noda_pakaian_id' => $data['noda_pakaian_id'],
+                'tingkat_kekotoran' => $data['tingkat_kekotoran'],
                 'berat'            => $data['berat'] ?? null,
                 'jumlah'           => $data['jumlah'] ?? null,
             ]);
@@ -123,7 +122,8 @@ class TransaksiService
 
             $transaksi->transaksiDetail()->update([
                 'layanan_id'       => $data['layanan_id'],
-                'penyakit_noda_id' => $data['penyakit_noda_id'],
+                'noda_pakaian_id' => $data['noda_pakaian_id'],
+                'tingkat_kekotoran' => $data['tingkat_kekotoran'],
                 'berat'            => $data['berat'] ?? null,
                 'jumlah'           => $data['jumlah'] ?? null,
             ]);

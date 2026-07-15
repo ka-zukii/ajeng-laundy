@@ -33,7 +33,7 @@ class TransaksisTable
                             return '-';
                         }
 
-                        return "{$layanan->nama_layanan} ({$layanan->tipe_layanan->label()})";
+                        return "{$layanan->nama_layanan} ";
                     }),
 
                 TextColumn::make('total_biaya')
@@ -50,8 +50,12 @@ class TransaksisTable
                     ->label('Masuk')
                     ->date('d M Y'),
 
+                TextColumn::make('estimasi_selesai')
+                    ->label('Estimasi Selesai')
+                    ->date('d M Y'),
+
                 TextColumn::make('tanggal_selesai')
-                    ->label('Selesai')
+                    ->label('Tanggal Selesai')
                     ->date('d M Y'),
             ])
             ->filters([

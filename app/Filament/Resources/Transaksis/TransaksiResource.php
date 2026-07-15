@@ -26,6 +26,10 @@ class TransaksiResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::ReceiptPercent;
 
+    public static function getBreadcrumb(): string
+    {
+        return 'Transaksi Laundry';
+    }
     public static function form(Schema $schema): Schema
     {
         return TransaksiForm::configure($schema);
@@ -50,7 +54,7 @@ class TransaksiResource extends Resource
                 'pelanggan',
                 'transaksiDetail',
                 'transaksiDetail.layanan',
-                'transaksiDetail.penyakitNoda',
+                'transaksiDetail.nodaPakaian',
             ]);
     }
 
