@@ -3,11 +3,9 @@
 namespace App\Models;
 
 use App\Enums\JenisPerhitungan;
-use App\Enums\TipeLayanan;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Override;
 
 #[Fillable([
     'nama_layanan',
