@@ -16,7 +16,7 @@ class TransaksisTable
         return $table
             ->columns([
                 TextColumn::make('kode_transaksi')
-                    ->label('Kode')
+                    ->label('Kode Transaksi')
                     ->searchable()
                     ->copyable()
                     ->weight(FontWeight::Bold),
@@ -37,26 +37,18 @@ class TransaksisTable
                     }),
 
                 TextColumn::make('total_biaya')
-                    ->label('Total')
+                    ->label('Total Biaya')
                     ->money('IDR', locale: 'id')
                     ->alignEnd(),
+
+                TextColumn::make('tanggal_masuk')
+                    ->label('Tanggal Masuk')
+                    ->date('d M Y'),
 
                 TextColumn::make('status_laundry')
                     ->badge()
                     ->formatStateUsing(fn($state) => $state->label())
                     ->color(fn($state) => $state->color()),
-
-                TextColumn::make('tanggal_masuk')
-                    ->label('Masuk')
-                    ->date('d M Y'),
-
-                TextColumn::make('estimasi_selesai')
-                    ->label('Estimasi Selesai')
-                    ->date('d M Y'),
-
-                TextColumn::make('tanggal_selesai')
-                    ->label('Tanggal Selesai')
-                    ->date('d M Y'),
             ])
             ->filters([
                 //

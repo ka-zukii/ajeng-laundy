@@ -16,4 +16,9 @@ class EditLayanan extends EditRecord
             DeleteAction::make(),
         ];
     }
+
+      public function getTitle(): string
+    {
+        return 'Edit Data Layanan';
+    }
 }

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Users\Pages;
+namespace App\Filament\Resources\Pelanggans\Pages;
 
-use App\Filament\Resources\Users\UserResource;
+use App\Filament\Resources\Pelanggans\PelangganResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListUsers extends ListRecords
+class ListPelanggans extends ListRecords
 {
-    protected static string $resource = UserResource::class;
+    protected static string $resource = PelangganResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -19,6 +19,6 @@ class ListUsers extends ListRecords
 
     public function getTitle(): string
     {
-        return 'Detail Akun Pengguna';
+        return 'Data Pelanggan';
     }
 }

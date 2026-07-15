@@ -20,10 +20,15 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationLabel = 'User';
+    protected static ?string $navigationLabel = 'Akun Pengguna';
     protected static string|UnitEnum|null $navigationGroup = 'Master Data';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::UserCircle;
+
+    public static function getBreadcrumb(): string
+    {
+        return 'Akun Pengguna';
+    }
 
     public static function form(Schema $schema): Schema
     {

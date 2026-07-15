@@ -11,9 +11,18 @@ enum StatusPembayaran: string
     public function label(): string
     {
         return match ($this) {
-            self::SUKSES => 'Sukses',
-            self::MENGUNGGU => 'Menunggu',
-            self::DIBATALKAN => 'Dibatalkan'
+            self::SUKSES => 'Pembayaran Berhasil',
+            self::MENGUNGGU => 'Menunggu Pembayaran',
+            self::DIBATALKAN => 'Pembayaran Dibatalkan'
+        };
+    }
+
+    public function color(): string
+    {
+        return match ($this) {
+            self::SUKSES => 'success',
+            self::MENGUNGGU => 'warning',
+            self::DIBATALKAN => 'danger'
         };
     }
 
