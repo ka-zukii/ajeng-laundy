@@ -14,11 +14,31 @@ return new class extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_id')->constrained('transaksi')->cascadeOnDelete();
-            $table->string('metode_pembayaran')->nullable()->default('tunai');
-            $table->date('tanggal_pembayaran')->nullable()->default(now());
-            $table->decimal('jumlah_pembayaran');
-            $table->enum('status_pembayaran', array_map(fn($statusPembayaran) => $statusPembayaran->value, StatusPembayaran::cases()))->nullable()->default(StatusPembayaran::MENGUNGGU);
+            $table->foreignId('transaksi_id')
+                ->constrained('transaksi')
+                ->cascadeOnDelete();
+            $table->decimal('jumlah_pembayaran', 12, 2);
+            $table->string('metode_pembayaran')->nullable();
+            $table->string('payment_gateway')->nullable();
+            $table->timestamp('tanggal_pembayaran')->nullable();
+            $table->enum(
+                'status_pembayaran',
+                array_map(
+                    fn($status) => $status->value,
+                    StatusPembayaran::cases()
+                )
+            )->default(StatusPembayaran::MENGUNGGU->value);
+
+            // Midtrans
+            $table->string('midtrans_order_id')->nullable();
+            $table->string('midtrans_transaction_id')->nullable();
+            $table->string('snap_token')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('va_number')->nullable();
+            $table->timestamp('expired_at')->nullable();
+
+            $table->text('catatan')->nullable();
             $table->timestamps();
         });
     }
