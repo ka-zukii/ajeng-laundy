@@ -3,6 +3,7 @@
 namespace App\Services\Transaksi;
 
 use App\Enums\StatusLaundry;
+use App\Enums\StatusPembayaran;
 use App\Models\Layanan;
 use App\Models\NodaPakaian;
 use App\Models\Transaksi;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 class TransactionService
 {
     public function __construct(
-        protected TransactionCodeService $codeService,
         protected TransactionCalculator $calculator,
         protected FuzzyLaundryService $fuzzyService,
     ) {}
@@ -39,7 +39,12 @@ class TransactionService
                 $data,
             );
 
-            return $transaksi;
+            $this->createPayment(
+                $transaksi,
+                $prepared['total'],
+            );
+
+            return $transaksi->refresh();
         });
     }
 
@@ -47,7 +52,6 @@ class TransactionService
         Transaksi $transaksi,
         array $data,
     ): Transaksi {
-
         return DB::transaction(function () use ($transaksi, $data) {
 
             $prepared = $this->prepareTransaction(
@@ -66,6 +70,11 @@ class TransactionService
                 $data,
             );
 
+            $this->updatePayment(
+                $transaksi,
+                $prepared['total'],
+            );
+
             return $transaksi->refresh();
         });
     }
@@ -74,7 +83,6 @@ class TransactionService
         array $data,
         Carbon $tanggalMasuk,
     ): array {
-
         $layanan = Layanan::findOrFail($data['layanan_id']);
 
         $noda = ! empty($data['noda_pakaian_id'])
@@ -95,10 +103,10 @@ class TransactionService
         );
 
         return [
-            'layanan' => $layanan,
-            'total' => $total,
-            'estimasi_selesai' => $fuzzy['estimasi_selesai'],
-            'prioritas' => $fuzzy['prioritas'],
+            'layanan'            => $layanan,
+            'total'              => $total,
+            'estimasi_selesai'   => $fuzzy['estimasi_selesai'],
+            'prioritas'          => $fuzzy['prioritas'],
         ];
     }
 
@@ -107,15 +115,14 @@ class TransactionService
         array $prepared,
         Carbon $tanggalMasuk,
     ): Transaksi {
-
         return Transaksi::create([
-            'pelanggan_id' => $data['pelanggan_id'],
-            'kode_transaksi' => $this->codeService->generate(),
-            'tanggal_masuk' => $tanggalMasuk,
-            'estimasi_selesai' => $prepared['estimasi_selesai'],
-            'prioritas' => $prepared['prioritas'],
-            'status_laundry' => StatusLaundry::PENDING,
-            'total_biaya' => $prepared['total'],
+            'pelanggan_id'      => $data['pelanggan_id'],
+            // kode_transaksi otomatis dari model booted()
+            'tanggal_masuk'     => $tanggalMasuk,
+            'estimasi_selesai'  => $prepared['estimasi_selesai'],
+            'prioritas'         => $prepared['prioritas'],
+            'status_laundry'    => StatusLaundry::PENDING,
+            'total_biaya'       => $prepared['total'],
         ]);
     }
 
@@ -124,12 +131,11 @@ class TransactionService
         array $data,
         array $prepared,
     ): void {
-
         $transaksi->update([
-            'pelanggan_id' => $data['pelanggan_id'],
-            'estimasi_selesai' => $prepared['estimasi_selesai'],
-            'prioritas' => $prepared['prioritas'],
-            'total_biaya' => $prepared['total'],
+            'pelanggan_id'      => $data['pelanggan_id'],
+            'estimasi_selesai'  => $prepared['estimasi_selesai'],
+            'prioritas'         => $prepared['prioritas'],
+            'total_biaya'       => $prepared['total'],
         ]);
     }
 
@@ -137,13 +143,12 @@ class TransactionService
         Transaksi $transaksi,
         array $data,
     ): void {
-
         $transaksi->transaksiDetail()->create([
-            'layanan_id' => $data['layanan_id'],
-            'noda_pakaian_id' => $data['noda_pakaian_id'] ?? null,
-            'tingkat_kekotoran' => $data['tingkat_kekotoran'],
-            'berat' => $data['berat'] ?? null,
-            'jumlah' => $data['jumlah'] ?? null,
+            'layanan_id'         => $data['layanan_id'],
+            'noda_pakaian_id'    => $data['noda_pakaian_id'] ?? null,
+            'tingkat_kekotoran'  => $data['tingkat_kekotoran'],
+            'berat'              => $data['berat'] ?? null,
+            'jumlah'             => $data['jumlah'] ?? null,
         ]);
     }
 
@@ -151,13 +156,36 @@ class TransactionService
         Transaksi $transaksi,
         array $data,
     ): void {
-
         $transaksi->transaksiDetail()->update([
-            'layanan_id' => $data['layanan_id'],
-            'noda_pakaian_id' => $data['noda_pakaian_id'] ?? null,
-            'tingkat_kekotoran' => $data['tingkat_kekotoran'],
-            'berat' => $data['berat'] ?? null,
-            'jumlah' => $data['jumlah'] ?? null,
+            'layanan_id'         => $data['layanan_id'],
+            'noda_pakaian_id'    => $data['noda_pakaian_id'] ?? null,
+            'tingkat_kekotoran'  => $data['tingkat_kekotoran'],
+            'berat'              => $data['berat'] ?? null,
+            'jumlah'             => $data['jumlah'] ?? null,
         ]);
+    }
+
+    private function createPayment(
+        Transaksi $transaksi,
+        float $total,
+    ): void {
+        $transaksi->pembayaran()->create([
+            'metode_pembayaran'   => null,
+            'tanggal_pembayaran'  => null,
+            'jumlah_pembayaran'   => $total,
+            'status_pembayaran'   => StatusPembayaran::MENGUNGGU,
+        ]);
+    }
+
+    private function updatePayment(
+        Transaksi $transaksi,
+        float $total,
+    ): void {
+        $transaksi->pembayaran()->updateOrCreate(
+            [],
+            [
+                'jumlah_pembayaran' => $total,
+            ]
+        );
     }
 }

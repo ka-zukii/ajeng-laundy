@@ -20,7 +20,7 @@ class TransaksiResource extends Resource
 {
     protected static ?string $model = Transaksi::class;
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
     protected static ?string $navigationLabel = 'Transaksi';
     protected static string|UnitEnum|null $navigationGroup = 'Transaksi';
 
