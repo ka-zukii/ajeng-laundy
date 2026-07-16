@@ -13,30 +13,70 @@ class PelanggansTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
+            ->striped()
             ->columns([
-                TextColumn::make("nama")
-                    ->label('Nama Pelanggan'),
+                TextColumn::make('nama')
+                    ->label('Pelanggan')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('bold')
+                    ->icon('heroicon-o-user-circle'),
                 TextColumn::make('nomor_telepon')
-                    ->label('Nomor Telepon'),
+                    ->label('Nomor Telepon')
+                    ->icon('heroicon-o-phone')
+                    ->copyable()
+                    ->copyMessage('Nomor telepon berhasil disalin.')
+                    ->searchable(),
                 TextColumn::make('transaksi_count')
-                    ->label('Total Transaksi'),
+                    ->label('Transaksi')
+                    ->counts('transaksi')
+                    ->badge()
+                    ->sortable()
+                    ->alignCenter()
+                    ->color(fn($state) => match (true) {
+                        $state == 0 => 'gray',
+                        $state <= 5 => 'success',
+                        $state <= 15 => 'warning',
+                        default => 'danger',
+                    }),
                 TextColumn::make('transaksi_sum_total_biaya')
                     ->label('Total Pengeluaran')
-                    ->money('IDR', locale: 'id'),
+                    ->sum('transaksi', 'total_biaya')
+                    ->money('IDR', locale: 'id')
+                    ->sortable()
+                    ->alignEnd()
+                    ->weight('bold')
+                    ->color('primary'),
                 TextColumn::make('transaksi_max_tanggal_masuk')
                     ->label('Terakhir Laundry')
-                    ->date('d M Y'),
+                    ->max('transaksi', 'tanggal_masuk')
+                    ->since()
+                    ->sortable(),
+                TextColumn::make('created_at')
+                    ->label('Terdaftar')
+                    ->date('d M Y')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Edit')
+                    ->icon('heroicon-o-pencil-square')
+                    ->color('warning'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()
+                        ->label('Hapus')
+                        ->icon('heroicon-o-trash'),
                 ]),
-            ]);
+            ])
+            ->emptyStateHeading('Belum ada pelanggan')
+            ->emptyStateDescription(
+                'Pelanggan akan muncul setelah ditambahkan melalui menu pelanggan atau saat membuat transaksi.'
+            )
+            ->emptyStateIcon('heroicon-o-user-group');
     }
 }

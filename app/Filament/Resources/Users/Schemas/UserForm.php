@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\Users\Schemas;
 
 use App\Enums\UserRole;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -17,53 +17,82 @@ class UserForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Pengguna')
-                    ->description('Lengkapi data profil pengguna di bawah ini.')
-                    ->icon(Heroicon::User)
-                    ->components([
+                Section::make('Informasi Akun')
+                    ->description('Masukkan informasi dasar akun pengguna.')
+                    ->icon(Heroicon::UserCircle)
+                    ->schema([
                         Grid::make(2)
-                            ->components([
+                            ->schema([
                                 TextInput::make('username')
                                     ->label('Username')
-                                    ->unique(table: 'users', ignoreRecord:true)
+                                    ->placeholder('Contoh: rizkyandika')
                                     ->required()
-                                    ->maxLength(255)
-                                    ->placeholder('Masukkan username'),
-
+                                    ->unique(
+                                        table: 'users',
+                                        ignoreRecord: true,
+                                    )
+                                    ->maxLength(50)
+                                    ->prefixIcon(Heroicon::User),
                                 TextInput::make('email')
                                     ->label('Email')
                                     ->email()
-                                    ->unique(table: 'users', ignoreRecord: true)
-                                    ->placeholder('Masukkan alamat email')
-                                    ->maxLength(255),
-
+                                    ->placeholder('Contoh: rizky@gmail.com')
+                                    ->unique(
+                                        table: 'users',
+                                        ignoreRecord: true,
+                                    )
+                                    ->maxLength(255)
+                                    ->prefixIcon(Heroicon::Envelope),
+                                TextInput::make('password')
+                                    ->label('Password')
+                                    ->password()
+                                    ->revealable()
+                                    ->required(fn(string $operation) => $operation === 'create')
+                                    ->dehydrated(fn($state) => filled($state))
+                                    ->placeholder(
+                                        fn(string $operation) =>
+                                        $operation === 'create'
+                                            ? 'Masukkan password'
+                                            : 'Kosongkan jika tidak ingin mengubah password'
+                                    )
+                                    ->columnSpanFull()
+                                    ->helperText('Minimal gunakan kombinasi huruf dan angka.'),
+                            ]),
+                    ]),
+                Section::make('Hak Akses')
+                    ->description('Atur role dan hubungkan akun dengan data pelanggan.')
+                    ->icon(Heroicon::ShieldCheck)
+                    ->schema([
+                        Grid::make(2)
+                            ->schema([
+                                Select::make('role')
+                                    ->label('Role Pengguna')
+                                    ->options(UserRole::options())
+                                    ->required()
+                                    ->native(false)
+                                    ->default(UserRole::PELANGGAN->value)
+                                    ->helperText('Role menentukan hak akses pengguna pada sistem.'),
                                 Select::make('pelanggan_id')
-                                    ->label('Hubungkan ke Pelanggan')
+                                    ->label('Data Pelanggan')
                                     ->relationship(
                                         name: 'pelanggan',
                                         titleAttribute: 'nomor_telepon',
                                     )
                                     ->searchable(['nama', 'nomor_telepon'])
+                                    ->preload()
+                                    ->native(false)
+                                    ->placeholder('Belum dihubungkan')
                                     ->getOptionLabelFromRecordUsing(
                                         fn($record) => "{$record->nama} • {$record->nomor_telepon}"
                                     )
-                                    ->helperText('Pilih pelanggan yang sudah pernah bertransaksi.')
-                                    ->preload(),
-
-                                Select::make('role')
-                                    ->label('Role')
-                                    ->options(UserRole::options())
-                                    ->default(UserRole::PELANGGAN->value)
-                                    ->required(),
-
-                                TextInput::make('password')
-                                    ->label('Password')
-                                    ->password()
-                                    ->dehydrated(fn($state) => filled($state))
-                                    ->required(fn(string $context): bool => $context === 'create')
-                                    ->placeholder(fn(string $context): string => $context === 'create' ? 'Masukkan password' : 'Kosongkan jika tidak ingin mengubah password')
-                                    ->maxLength(255),
+                                    ->helperText(
+                                        'Hubungkan akun ini dengan pelanggan yang sudah terdaftar agar pelanggan dapat melihat riwayat transaksinya.'
+                                    ),
                             ]),
+                        Placeholder::make('informasi')
+                            ->hidden(fn(string $operation) => $operation === 'create')
+                            ->label('Informasi')
+                            ->content('Apabila akun sudah terhubung dengan pelanggan, pelanggan dapat login dan melihat status transaksi laundry secara langsung.'),
                     ]),
             ]);
     }

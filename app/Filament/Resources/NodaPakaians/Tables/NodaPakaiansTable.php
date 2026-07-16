@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Users\Tables;
+namespace App\Filament\Resources\NodaPakaians\Tables;
 
-use App\Enums\UserRole;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class UsersTable
+class NodaPakaiansTable
 {
     public static function configure(Table $table): Table
     {
@@ -18,44 +16,41 @@ class UsersTable
             ->defaultSort('created_at', 'desc')
             ->striped()
             ->columns([
-                TextColumn::make('username')
-                    ->label('Username')
+                TextColumn::make('nama_noda')
+                    ->label('Noda Pakaian')
                     ->searchable()
                     ->sortable()
                     ->weight('bold')
-                    ->icon('heroicon-o-user-circle'),
-                TextColumn::make('email')
-                    ->label('Email')
-                    ->searchable()
-                    ->sortable()
-                    ->copyable()
-                    ->copyMessage('Email berhasil disalin.')
-                    ->icon('heroicon-o-envelope'),
-                TextColumn::make('role')
-                    ->label('Role')
                     ->badge()
+                    ->color('primary')
+                    ->icon('heroicon-o-sparkles'),
+                TextColumn::make('solusi')
+                    ->label('Solusi')
+                    ->searchable()
+                    ->limit(60)
+                    ->tooltip(fn($record) => $record->solusi)
+                    ->wrap(),
+                TextColumn::make('biaya_tambahan')
+                    ->label('Biaya Tambahan')
+                    ->money('IDR', locale: 'id')
                     ->sortable()
-                    ->formatStateUsing(fn(UserRole $state) => $state->label())
-                    ->color(fn(UserRole $state) => $state->color()),
-                IconColumn::make('pelanggan')
-                    ->label('Terhubung')
-                    ->boolean()
-                    ->state(fn($record) => $record->pelanggan !== null)
-                    ->tooltip(fn($record) => $record->pelanggan
-                        ? 'Terhubung dengan data pelanggan'
-                        : 'Belum terhubung'),
+                    ->alignEnd()
+                    ->badge()
+                    ->color(fn($state) => match (true) {
+                        $state == 0 => 'success',
+                        $state <= 5000 => 'warning',
+                        default => 'danger',
+                    }),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d M Y, H:i')
-                    ->timezone('Asia/Jakarta')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diubah')
+                    ->label('Diubah')
                     ->since()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-
             ])
             ->filters([])
             ->recordActions([
@@ -71,10 +66,10 @@ class UsersTable
                         ->icon('heroicon-o-trash'),
                 ]),
             ])
-            ->emptyStateHeading('Belum ada pengguna')
+            ->emptyStateHeading('Belum ada data noda pakaian')
             ->emptyStateDescription(
-                'Tambahkan akun baru untuk owner, karyawan, atau pelanggan.'
+                'Tambahkan data noda pakaian untuk membantu proses pencucian dan perhitungan biaya tambahan.'
             )
-            ->emptyStateIcon('heroicon-o-users');
+            ->emptyStateIcon('heroicon-o-sparkles');
     }
 }
