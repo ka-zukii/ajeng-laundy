@@ -27,6 +27,7 @@ class Transaksi extends Model
     public function casts(): array
     {
         return [
+            'estimasi_selesai' => 'datetime',
             'status_laundry' => StatusLaundry::class,
             'prioritas' => PrioritasLaundry::class,
         ];

@@ -37,8 +37,8 @@ class PembayaranForm
                                     ->formatStateUsing(fn($state) => $state?->label())
                                     ->color(fn($state) => $state?->color()),
                                 TextEntry::make('transaksi.estimasi_selesai')
-                                    ->label('Estimasi')
-                                    ->suffix(' Jam'),
+                                    ->label('Estimasi Selesai')
+                                    ->dateTime('d F Y, H:i'),
                             ]),
                     ]),
                 Section::make('Informasi Pembayaran')
