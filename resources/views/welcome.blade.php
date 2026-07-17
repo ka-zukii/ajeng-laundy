@@ -1,6 +1,6 @@
 <x-layout>
 
     @include('sections.hero')
-    @include('sections.reservation-input')
+    @include('sections.about')
 
 </x-layout>

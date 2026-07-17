@@ -1,5 +1,5 @@
-<section class="w-full px-4 md:px-8 py-6 font-poppins">
-    <div class="flex flex-col items-center bg-ajeng-pink p-6 gap-4 rounded-4xl">
+<section class="w-full py-6 font-poppins">
+    <div class="flex 2xl:max-w-7xl 2xl:mx-auto flex-col items-center bg-ajeng-pink p-6 gap-4 rounded-4xl drop-shadow-xl">
         <h1 class="md:self-start text-ajeng-white text-2xl md:text-4xl font-semibold">Reservasi Laundry</h1>
         <form action="" class="w-full grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
             <x-input type="text" name="name" placeholder="Nama" />
@@ -16,7 +16,7 @@
             <x-datepicker name="tanggal_ambil" required />
 
             <button type="submit"
-                class="w-full bg-ajeng-white rounded-4xl px-4 py-3 text-ajeng-pink text-lg font-semibold">
+                class="w-full bg-ajeng-white rounded-4xl px-4 py-3 text-ajeng-pink text-lg font-semibold hover:scale-[1.05] transition-all drop-shadow-lg cursor-pointer">
                 Buat Reservasi
             </button>
         </form>
