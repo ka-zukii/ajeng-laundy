@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('jumlah_pembayaran', 12, 2);
             $table->string('metode_pembayaran')->nullable();
             $table->string('payment_gateway')->nullable();
-            $table->timestamp('tanggal_pembayaran')->nullable();
+            $table->dateTime('tanggal_pembayaran')->nullable();
             $table->enum(
                 'status_pembayaran',
                 array_map(

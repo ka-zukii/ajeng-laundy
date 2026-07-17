@@ -106,6 +106,7 @@ class TransactionService
         return [
             'layanan' => $layanan,
             'total' => $total,
+            // 'durasi_jam' => $fuzzy['durasi_jam'],
             'estimasi_selesai' => $fuzzy['estimasi_selesai'],
             'prioritas' => $fuzzy['prioritas'],
         ];

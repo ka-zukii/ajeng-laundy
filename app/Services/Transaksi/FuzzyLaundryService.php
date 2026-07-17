@@ -3,9 +3,10 @@
 namespace App\Services\Transaksi;
 
 use App\Enums\PrioritasLaundry;
-use App\Enums\JenisPerhitungan;
+use App\Enums\StatusLaundry;
 use App\Models\Layanan;
 use App\Models\NodaPakaian;
+use App\Models\Transaksi;
 use Carbon\Carbon;
 
 class FuzzyLaundryService
@@ -16,54 +17,117 @@ class FuzzyLaundryService
         array $data,
         Carbon $tanggalMasuk,
     ): array {
-        $durasiJam = 24;
 
-        // logika sementara
+        /*
+        |--------------------------------------------------------------------------
+        | Input Fuzzy
+        |--------------------------------------------------------------------------
+        */
 
-        if ($layanan->jenis_perhitungan === JenisPerhitungan::KILOAN) {
+        $berat = (float) ($data['berat'] ?? 0);
 
-            $berat = (float) ($data['berat'] ?? 0);
-
-            if ($berat >= 10) {
-                $durasiJam += 12;
-            } elseif ($berat >= 5) {
-                $durasiJam += 6;
-            }
-        }
-
-        if ($layanan->jenis_perhitungan === JenisPerhitungan::SATUAN) {
-
-            $jumlah = (int) ($data['jumlah'] ?? 0);
-
-            if ($jumlah >= 20) {
-                $durasiJam += 12;
-            } elseif ($jumlah >= 10) {
-                $durasiJam += 6;
-            }
-        }
-
-        if ($noda !== null) {
-            $durasiJam += 4;
-        }
+        $jumlah = (int) ($data['jumlah'] ?? 0);
 
         $tingkatKekotoran = (int) ($data['tingkat_kekotoran'] ?? 0);
 
-        if ($tingkatKekotoran >= 80) {
-            $prioritas = PrioritasLaundry::HIGH;
-        } elseif ($tingkatKekotoran >= 50) {
-            $prioritas = PrioritasLaundry::MEDIUM;
-        } else {
-            $prioritas = PrioritasLaundry::LOW;
-        }
+        $lamaMenunggu = $tanggalMasuk->diffInHours(now());
+
+        $jumlahAntrean = $this->getQueueCount();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Perhitungan Fuzzy (sementara)
+        |--------------------------------------------------------------------------
+        */
+
+        $durasiJam = $this->calculateDuration(
+            layanan: $layanan,
+            noda: $noda,
+            berat: $berat,
+            jumlah: $jumlah,
+            tingkatKekotoran: $tingkatKekotoran,
+            lamaMenunggu: $lamaMenunggu,
+            jumlahAntrean: $jumlahAntrean,
+        );
+
+        $prioritas = $this->calculatePriority(
+            durasiJam: $durasiJam,
+            tingkatKekotoran: $tingkatKekotoran,
+        );
 
         return [
             'durasi_jam' => $durasiJam,
-
             'estimasi_selesai' => $tanggalMasuk
                 ->copy()
                 ->addHours($durasiJam),
-
             'prioritas' => $prioritas,
         ];
+    }
+
+    /**
+     * Menghitung jumlah antrean laundry aktif.
+     */
+    private function getQueueCount(): int
+    {
+        return Transaksi::query()
+            ->whereIn('status_laundry', [
+                StatusLaundry::PENDING,
+                StatusLaundry::DIPROSES,
+            ])
+            ->count();
+    }
+
+    /**
+     * Placeholder perhitungan durasi.
+     *
+     * Nanti seluruh isi method ini diganti dengan
+     * Fuzzy Sugeno.
+     */
+    private function calculateDuration(
+        Layanan $layanan,
+        ?NodaPakaian $noda,
+        float $berat,
+        int $jumlah,
+        int $tingkatKekotoran,
+        int $lamaMenunggu,
+        int $jumlahAntrean,
+    ): int {
+
+        /*
+        |--------------------------------------------------------------------------
+        | TODO
+        |--------------------------------------------------------------------------
+        |
+        | Berat
+        | Jumlah
+        | Tingkat Kekotoran
+        | Lama Menunggu
+        | Jumlah Antrean
+        |
+        | Akan diproses menggunakan
+        | Fuzzy Sugeno.
+        |
+        */
+
+        return 24;
+    }
+
+    /**
+     * Placeholder menentukan prioritas.
+     */
+    private function calculatePriority(
+        int $durasiJam,
+        int $tingkatKekotoran,
+    ): PrioritasLaundry {
+
+        if ($tingkatKekotoran >= 80) {
+            return PrioritasLaundry::HIGH;
+        }
+
+        if ($tingkatKekotoran >= 50) {
+            return PrioritasLaundry::MEDIUM;
+        }
+
+        return PrioritasLaundry::LOW;
     }
 }

@@ -48,6 +48,7 @@ class PembayaranForm
                             ->schema([
                                 TextEntry::make('metode_pembayaran')
                                     ->label('Metode')
+                                    ->formatStateUsing(fn ($state) => $state->label())
                                     ->placeholder('-'),
                                 TextEntry::make('status_pembayaran')
                                     ->label('Status')

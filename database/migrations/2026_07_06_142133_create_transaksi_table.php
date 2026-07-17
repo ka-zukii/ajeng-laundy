@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pelanggan_id')->constrained('pelanggan')->cascadeOnDelete();
             $table->string('kode_transaksi')->unique();
-            $table->date('tanggal_masuk')->nullable()->default(now());
+            $table->dateTime('tanggal_masuk')->default(now());
             $table->dateTime('estimasi_selesai')->nullable();
-            $table->date('tanggal_selesai')->nullable();
+            $table->dateTime('tanggal_selesai')->nullable();
             $table->enum('status_laundry', array_map(fn($statusLaundry) => $statusLaundry->value, StatusLaundry::cases()))->nullable()->default(StatusLaundry::PENDING);
             $table->enum('prioritas', array_map(fn($prioritas) => $prioritas->value, PrioritasLaundry::cases()))->nullable()->default(PrioritasLaundry::LOW);
             $table->decimal('total_biaya')->nullable();
