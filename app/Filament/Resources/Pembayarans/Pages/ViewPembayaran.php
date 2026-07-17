@@ -2,71 +2,85 @@
 
 namespace App\Filament\Resources\Pembayarans\Pages;
 
+use App\Enums\MetodePembayaran;
 use App\Enums\StatusPembayaran;
 use App\Filament\Resources\Pembayarans\PembayaranResource;
-use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
+use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Width;
 
 class ViewPembayaran extends ViewRecord
 {
     protected static string $resource = PembayaranResource::class;
 
+    protected Width|string|null $maxContentWidth = Width::Full;
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\Action::make('bayarTunai')
+            Action::make('bayarTunai')
                 ->label('Bayar Tunai')
                 ->icon('heroicon-o-banknotes')
                 ->color('success')
-                ->visible(fn() => $this->record->status_pembayaran === StatusPembayaran::MENGUNGGU)
+                ->visible(fn() => $this->record->isPending())
                 ->requiresConfirmation()
                 ->action(function () {
-
                     $this->record->update([
-                        'metode_pembayaran' => 'tunai',
-                        'status_pembayaran' => StatusPembayaran::SUKSES,
+                        'metode_pembayaran'  => MetodePembayaran::TUNAI,
+                        'status_pembayaran'  => StatusPembayaran::SUKSES,
                         'tanggal_pembayaran' => now(),
                     ]);
-
                     Notification::make()
-                        ->success()
                         ->title('Pembayaran berhasil.')
+                        ->success()
                         ->send();
-
-                    $this->redirect(request()->header('Referer'));
+                    $this->refreshFormData([
+                        'metode_pembayaran',
+                        'status_pembayaran',
+                        'tanggal_pembayaran',
+                    ]);
                 }),
-            Actions\Action::make('midtrans')
+
+            Action::make('midtrans')
                 ->label('Bayar Midtrans')
                 ->icon('heroicon-o-credit-card')
                 ->color('info')
-                ->visible(fn() => $this->record->status_pembayaran === StatusPembayaran::MENGUNGGU)
+                ->visible(fn() => $this->record->isPending())
                 ->action(function () {
-                    // nanti isi ketika integrasi Midtrans
+                    // Integrasi Midtrans nanti
                 }),
-            Actions\Action::make('batalkan')
+
+            Action::make('batalkan')
                 ->label('Batalkan')
                 ->icon('heroicon-o-x-circle')
                 ->color('danger')
-                ->visible(fn() => $this->record->status_pembayaran === StatusPembayaran::MENGUNGGU)
+                ->visible(fn() => $this->record->isPending())
                 ->requiresConfirmation()
                 ->action(function () {
                     $this->record->update([
                         'status_pembayaran' => StatusPembayaran::DIBATALKAN,
                     ]);
+
                     Notification::make()
-                        ->warning()
                         ->title('Pembayaran dibatalkan.')
+                        ->warning()
                         ->send();
-                    $this->redirect(request()->header('Referer'));
+
+                    $this->refreshFormData([
+                        'status_pembayaran',
+                    ]);
                 }),
-            Actions\Action::make('cetak')
+
+            Action::make('cetak')
                 ->label('Cetak Nota')
                 ->icon('heroicon-o-printer')
                 ->color('gray')
                 ->action(function () {
-                    // buat PDF
+                    // Generate PDF nanti
                 }),
+
         ];
     }
 }

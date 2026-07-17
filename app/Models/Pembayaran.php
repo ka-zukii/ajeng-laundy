@@ -10,15 +10,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
     'transaksi_id',
-
     'jumlah_pembayaran',
-
     'metode_pembayaran',
     'payment_gateway',
-
     'status_pembayaran',
     'tanggal_pembayaran',
-
     // Midtrans
     'snap_token',
     'payment_type',
@@ -26,7 +22,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'va_number',
     'midtrans_transaction_id',
     'expired_at',
-
     'catatan',
 ])]
 class Pembayaran extends Model

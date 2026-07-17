@@ -17,6 +17,17 @@ class EditPelanggan extends EditRecord
         ];
     }
 
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $user = $this->getRecord()->user;
+
+        $data['user'] = [
+            'email' => $user ? $user->email : null,
+        ];
+
+        return $data;
+    }
+
     public function getTitle(): string
     {
         return 'Edit Data Pelanggan';

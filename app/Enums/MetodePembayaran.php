@@ -6,17 +6,13 @@ enum MetodePembayaran: string
 {
     // Manual
     case TUNAI = 'tunai';
-
     // QRIS
     case QRIS = 'qris';
-
     // Virtual Account
     case BANK_TRANSFER = 'bank_transfer';
-
     // E-Wallet
     case GOPAY = 'gopay';
     case SHOPEEPAY = 'shopeepay';
-
     // Kartu
     case CREDIT_CARD = 'credit_card';
 

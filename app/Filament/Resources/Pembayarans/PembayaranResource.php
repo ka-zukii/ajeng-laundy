@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Pembayarans;
 use App\Filament\Resources\Pembayarans\Pages\CreatePembayaran;
 use App\Filament\Resources\Pembayarans\Pages\EditPembayaran;
 use App\Filament\Resources\Pembayarans\Pages\ListPembayarans;
+use App\Filament\Resources\Pembayarans\Pages\ViewPembayaran;
 use App\Filament\Resources\Pembayarans\Schemas\PembayaranForm;
 use App\Filament\Resources\Pembayarans\Tables\PembayaransTable;
 use App\Models\Pembayaran;
@@ -52,6 +53,7 @@ class PembayaranResource extends Resource
     {
         return [
             'index' => ListPembayarans::route('/'),
+            'view' => ViewPembayaran::route('/{record}')
         ];
     }
 }

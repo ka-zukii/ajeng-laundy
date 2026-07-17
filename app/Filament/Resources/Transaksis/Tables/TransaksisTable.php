@@ -3,10 +3,15 @@
 namespace App\Filament\Resources\Transaksis\Tables;
 
 use App\Enums\StatusPembayaran;
+use App\Filament\Resources\Pembayarans\PembayaranResource;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\FontWeight;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,12 +20,16 @@ class TransaksisTable
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn($query) => $query->with([
+                'pelanggan',
+                'transaksiDetail.layanan',
+                'pembayaran',
+            ]))
             ->defaultSort('tanggal_masuk', 'desc')
             ->striped()
             ->columns([
                 TextColumn::make('kode_transaksi')
                     ->label('Kode Transaksi')
-                    ->icon('heroicon-o-qr-code')
                     ->weight(FontWeight::Bold)
                     ->searchable()
                     ->sortable()
@@ -28,7 +37,6 @@ class TransaksisTable
                     ->copyMessage('Kode transaksi berhasil disalin.'),
                 TextColumn::make('pelanggan.nama')
                     ->label('Pelanggan')
-                    ->icon('heroicon-o-user')
                     ->placeholder('Pelanggan Offline')
                     ->description(fn($record) => $record->pelanggan?->nomor_telepon)
                     ->searchable(['nama', 'nomor_telepon'])
@@ -63,7 +71,7 @@ class TransaksisTable
                 TextColumn::make('estimasi_selesai')
                     ->label('Estimasi')
                     ->alignCenter()
-                    ->suffix(' Jam')
+                    ->dateTime('d F Y, H:i')
                     ->sortable(),
                 TextColumn::make('total_biaya')
                     ->label('Total Biaya')
@@ -95,10 +103,36 @@ class TransaksisTable
                 //
             ])
             ->recordActions([
+                ViewAction::make(),
                 EditAction::make()
                     ->label('Edit')
-                    ->icon('heroicon-o-pencil-square')
+                    ->icon(Heroicon::PencilSquare)
                     ->color('warning'),
+                Action::make('payment')
+                    ->hidden(fn($record) => $record->pembayaran === null)
+                    ->label(fn($record) => match ($record->pembayaran?->status_pembayaran) {
+                        StatusPembayaran::SUKSES => 'Lihat Pembayaran',
+                        StatusPembayaran::DIBATALKAN => 'Bayar Ulang',
+                        default => 'Pembayaran',
+                    })
+                    ->icon(fn($record) => match ($record->pembayaran?->status_pembayaran) {
+                        StatusPembayaran::SUKSES => Heroicon::Eye,
+                        StatusPembayaran::DIBATALKAN => Heroicon::ArrowPath,
+                        default => 'heroicon-o-credit-card',
+                    })
+                    ->color(fn($record) => match ($record->pembayaran?->status_pembayaran) {
+                        StatusPembayaran::SUKSES => 'gray',
+                        StatusPembayaran::DIBATALKAN => 'warning',
+                        default => 'success',
+                    })
+                    ->tooltip('Kelola pembayaran')
+                    ->modalAlignment(Alignment::Center)
+                    ->url(fn($record) => PembayaranResource::getUrl(
+                        'view',
+                        [
+                            'record' => $record->pembayaran,
+                        ]
+                    )),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

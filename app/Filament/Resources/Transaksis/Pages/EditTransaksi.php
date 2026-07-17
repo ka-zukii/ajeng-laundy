@@ -29,7 +29,7 @@ class EditTransaksi extends EditRecord
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         return app(TransactionService::class)->update(
-            $record->id,
+            $record,
             $data,
         );
     }
