@@ -32,6 +32,7 @@ return new class extends Migration
             // Midtrans
             $table->string('midtrans_order_id')->nullable();
             $table->string('midtrans_transaction_id')->nullable();
+            $table->string('transaction_status')->nullable();
             $table->string('snap_token')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('bank')->nullable();
@@ -48,6 +49,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembayran');
+        Schema::dropIfExists('pembayaran');
     }
 };

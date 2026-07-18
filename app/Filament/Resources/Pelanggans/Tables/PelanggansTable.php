@@ -20,11 +20,9 @@ class PelanggansTable
                     ->label('Pelanggan')
                     ->searchable()
                     ->sortable()
-                    ->weight('bold')
-                    ->icon('heroicon-o-user-circle'),
+                    ->weight('bold'),
                 TextColumn::make('nomor_telepon')
                     ->label('Nomor Telepon')
-                    ->icon('heroicon-o-phone')
                     ->copyable()
                     ->copyMessage('Nomor telepon berhasil disalin.')
                     ->searchable(),

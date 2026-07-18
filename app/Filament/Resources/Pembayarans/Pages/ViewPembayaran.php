@@ -5,10 +5,10 @@ namespace App\Filament\Resources\Pembayarans\Pages;
 use App\Enums\MetodePembayaran;
 use App\Enums\StatusPembayaran;
 use App\Filament\Resources\Pembayarans\PembayaranResource;
+use App\Models\Pembayaran;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Support\Enums\MaxWidth;
 use Filament\Support\Enums\Width;
 
 class ViewPembayaran extends ViewRecord
@@ -47,9 +47,33 @@ class ViewPembayaran extends ViewRecord
                 ->label('Bayar Midtrans')
                 ->icon('heroicon-o-credit-card')
                 ->color('info')
-                ->visible(fn() => $this->record->isPending())
-                ->action(function () {
-                    // Integrasi Midtrans nanti
+                ->visible(fn() => in_array(
+                    $this->record->status_pembayaran,
+                    [
+                        StatusPembayaran::MENGUNGGU,
+                        StatusPembayaran::DIBATALKAN,
+                    ],
+                    true,
+                ))
+                ->action(function (Pembayaran $record) {
+
+                    $paymentService = app(
+                        \App\Services\Pembayaran\PaymentService::class
+                    );
+
+                    if ($record->isCancelled()) {
+                        $paymentService->retry($record);
+                        $record->refresh();
+                    } else {
+                        $paymentService->refreshSnapToken(
+                            $record->transaksi,
+                        );
+                    }
+
+                    return redirect()->route(
+                        'payment',
+                        $record->transaksi,
+                    );
                 }),
 
             Action::make('batalkan')

@@ -22,15 +22,13 @@ class UsersTable
                     ->label('Username')
                     ->searchable()
                     ->sortable()
-                    ->weight('bold')
-                    ->icon('heroicon-o-user-circle'),
+                    ->weight('bold'),
                 TextColumn::make('email')
                     ->label('Email')
                     ->searchable()
                     ->sortable()
                     ->copyable()
-                    ->copyMessage('Email berhasil disalin.')
-                    ->icon('heroicon-o-envelope'),
+                    ->copyMessage('Email berhasil disalin.'),
                 TextColumn::make('role')
                     ->label('Role')
                     ->badge()
@@ -55,7 +53,6 @@ class UsersTable
                     ->since()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-
             ])
             ->filters([])
             ->recordActions([

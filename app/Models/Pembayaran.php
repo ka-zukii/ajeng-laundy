@@ -15,12 +15,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
     'payment_gateway',
     'status_pembayaran',
     'tanggal_pembayaran',
+
     // Midtrans
     'snap_token',
     'payment_type',
     'bank',
     'va_number',
+    'midtrans_order_id',
     'midtrans_transaction_id',
+    'transaction_status',
     'expired_at',
     'catatan',
 ])]

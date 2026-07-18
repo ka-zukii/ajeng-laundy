@@ -23,16 +23,14 @@ class PembayaransTable
                     ->searchable()
                     ->sortable()
                     ->copyable()
-                    ->copyMessage('Kode transaksi berhasil disalin.')
-                    ->icon('heroicon-o-receipt-percent'),
+                    ->copyMessage('Kode transaksi berhasil disalin.'),
                 TextColumn::make('transaksi.pelanggan.nama')
                     ->label('Pelanggan')
                     ->description(
                         fn($record) => $record->transaksi?->pelanggan?->nomor_telepon
                     )
                     ->searchable(['nama', 'nomor_telepon'])
-                    ->sortable()
-                    ->icon('heroicon-o-user'),
+                    ->sortable(),
                 TextColumn::make('jumlah_pembayaran')
                     ->label('Nominal')
                     ->money('IDR', locale: 'id')

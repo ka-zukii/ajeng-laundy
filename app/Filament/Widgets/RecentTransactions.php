@@ -9,6 +9,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use App\Models\Transaksi;
+use Filament\Support\Icons\Heroicon;
 
 class RecentTransactions extends TableWidget
 {
@@ -40,15 +41,13 @@ class RecentTransactions extends TableWidget
                     ->weight(FontWeight::Bold)
                     ->copyable()
                     ->searchable()
-                    ->icon('heroicon-o-qr-code')
                     ->copyMessage('Kode transaksi berhasil disalin.'),
                 TextColumn::make('pelanggan.nama')
                     ->label('Pelanggan')
                     ->placeholder('Pelanggan Offline')
                     ->description(
                         fn($record) => $record->pelanggan?->nomor_telepon
-                    )
-                    ->icon('heroicon-o-user'),
+                    ),
                 TextColumn::make('transaksiDetail.layanan.nama_layanan')
                     ->label('Layanan')
                     ->badge()
@@ -99,6 +98,6 @@ class RecentTransactions extends TableWidget
             ->emptyStateDescription(
                 'Transaksi laundry terbaru akan muncul di sini.'
             )
-            ->emptyStateIcon('heroicon-o-receipt-percent');
+            ->emptyStateIcon(Heroicon::ReceiptPercent);
     }
 }

@@ -9,11 +9,12 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use App\Services\Pembayaran\PaymentService;
+use Filament\Notifications\Notification;
 
 class TransaksisTable
 {
@@ -104,35 +105,82 @@ class TransaksisTable
             ])
             ->recordActions([
                 ViewAction::make(),
+
                 EditAction::make()
                     ->label('Edit')
                     ->icon(Heroicon::PencilSquare)
                     ->color('warning'),
-                Action::make('payment')
-                    ->hidden(fn($record) => $record->pembayaran === null)
-                    ->label(fn($record) => match ($record->pembayaran?->status_pembayaran) {
-                        StatusPembayaran::SUKSES => 'Lihat Pembayaran',
-                        StatusPembayaran::DIBATALKAN => 'Bayar Ulang',
-                        default => 'Pembayaran',
-                    })
-                    ->icon(fn($record) => match ($record->pembayaran?->status_pembayaran) {
-                        StatusPembayaran::SUKSES => Heroicon::Eye,
-                        StatusPembayaran::DIBATALKAN => Heroicon::ArrowPath,
-                        default => 'heroicon-o-credit-card',
-                    })
-                    ->color(fn($record) => match ($record->pembayaran?->status_pembayaran) {
-                        StatusPembayaran::SUKSES => 'gray',
-                        StatusPembayaran::DIBATALKAN => 'warning',
-                        default => 'success',
-                    })
-                    ->tooltip('Kelola pembayaran')
-                    ->modalAlignment(Alignment::Center)
+
+                Action::make('pay')
+                    ->label('Pembayaran')
+                    ->icon(Heroicon::CreditCard)
+                    ->color('success')
+                    ->hidden(
+                        fn($record) =>
+                        $record->pembayaran === null ||
+                            $record->pembayaran->status_pembayaran !== StatusPembayaran::MENGUNGGU
+                    )
                     ->url(fn($record) => PembayaranResource::getUrl(
                         'view',
                         [
                             'record' => $record->pembayaran,
                         ]
                     )),
+
+                Action::make('view_payment')
+                    ->label('Lihat Pembayaran')
+                    ->icon(Heroicon::Eye)
+                    ->color('gray')
+                    ->hidden(
+                        fn($record) =>
+                        $record->pembayaran === null ||
+                            $record->pembayaran->status_pembayaran !== StatusPembayaran::SUKSES
+                    )
+                    ->url(
+                        fn($record) =>
+                        PembayaranResource::getUrl(
+                            'view',
+                            [
+                                'record' => $record->pembayaran,
+                            ]
+                        )
+                    ),
+
+                Action::make('retry_payment')
+                    ->label('Bayar Ulang')
+                    ->icon(Heroicon::ArrowPath)
+                    ->color('warning')
+                    ->hidden(
+                        fn($record) =>
+                        $record->pembayaran === null ||
+                            $record->pembayaran->status_pembayaran !== StatusPembayaran::DIBATALKAN
+                    )
+                    ->requiresConfirmation()
+                    ->modalHeading('Bayar Ulang Pembayaran')
+                    ->modalDescription(
+                        'Sistem akan membuat transaksi Midtrans baru. Lanjutkan?'
+                    )
+                    ->modalSubmitActionLabel('Ya, Bayar Ulang')
+                    ->action(function ($record) {
+
+                        app(PaymentService::class)
+                            ->retry($record->pembayaran);
+
+                        Notification::make()
+                            ->title('Pembayaran berhasil dibuat ulang.')
+                            ->body('Silakan pilih metode pembayaran kembali.')
+                            ->success()
+                            ->send();
+
+                        return redirect()->to(
+                            PembayaranResource::getUrl(
+                                'view',
+                                [
+                                    'record' => $record->pembayaran->fresh(),
+                                ]
+                            )
+                        );
+                    })
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
