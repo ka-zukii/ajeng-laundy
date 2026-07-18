@@ -2,8 +2,11 @@
 
 namespace App\Filament\Widgets;
 
+use App\Enums\StatusPembayaran;
 use App\Models\Transaksi;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class RevenueChart extends ChartWidget
 {
@@ -12,19 +15,30 @@ class RevenueChart extends ChartWidget
 
     protected function getData(): array
     {
+        $currentYear = now()->year;
+
+        // PERBAIKAN: Mengubah kolom acuan dari 'tanggal_selesai' menjadi 'tanggal_masuk'
+        $monthlyRevenue = Transaksi::query()
+            ->select(
+                DB::raw('MONTH(tanggal_masuk) as month'),
+                DB::raw('SUM(total_biaya) as total')
+            )
+            ->whereYear('tanggal_masuk', $currentYear)
+            // Filter berdasarkan pembayaran yang sudah SUKSES
+            ->whereHas('pembayaran', function ($query) {
+                $query->where('status_pembayaran', StatusPembayaran::SUKSES->value);
+            })
+            ->groupBy(DB::raw('MONTH(tanggal_masuk)'))
+            ->pluck('total', 'month')
+            ->toArray();
+
         $months = [];
         $revenues = [];
 
-        foreach (range(1, 12) as $month) {
-
-            $months[] = now()->startOfYear()->addMonths($month - 1)->format('M');
-
-            $revenues[] = Transaksi::query()
-                ->whereBetween('tanggal_selesai', [
-                    now()->startOfYear()->addMonths($month - 1),
-                    now()->startOfYear()->addMonths($month),
-                ], 'and', false)
-                ->sum('total_biaya');
+        // Petakan hasil query ke struktur array 12 bulan
+        foreach (range(1, 12) as $monthNumber) {
+            $months[] = Carbon::create()->month($monthNumber)->format('M');
+            $revenues[] = $monthlyRevenue[$monthNumber] ?? 0;
         }
 
         return [
@@ -38,7 +52,6 @@ class RevenueChart extends ChartWidget
                     'tension' => .4,
                 ],
             ],
-
             'labels' => $months,
         ];
     }

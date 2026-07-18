@@ -43,6 +43,7 @@ class PembayaransTable
                 TextColumn::make('metode_pembayaran')
                     ->label('Metode')
                     ->badge()
+                    ->formatStateUsing(fn($state) => $state->label())
                     ->placeholder('-')
                     ->sortable(),
                 TextColumn::make('status_pembayaran')
