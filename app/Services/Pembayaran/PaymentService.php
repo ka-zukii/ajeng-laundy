@@ -25,17 +25,17 @@ class PaymentService
             'status_pembayaran' => StatusPembayaran::MENGUNGGU,
         ]);
 
-        $snapToken = $this->midtrans->createSnapToken(
-            $transaksi->fresh([
-                'pelanggan',
-                'transaksiDetail.layanan',
-                'pembayaran',
-            ]),
-        );
+        // $snapToken = $this->midtrans->createSnapToken(
+        //     $transaksi->fresh([
+        //         'pelanggan',
+        //         'transaksiDetail.layanan',
+        //         'pembayaran',
+        //     ]),
+        // );
 
-        $pembayaran->update([
-            'snap_token' => $snapToken,
-        ]);
+        // $pembayaran->update([
+        //     'snap_token' => $snapToken,
+        // ]);
 
         return $pembayaran->fresh();
     }
@@ -67,15 +67,15 @@ class PaymentService
             'snap_token' => null,
         ]);
 
-        $pembayaran->update([
-            'snap_token' => $this->midtrans->createSnapToken(
-                $pembayaran->transaksi->fresh([
-                    'pelanggan',
-                    'transaksiDetail.layanan',
-                    'pembayaran',
-                ]),
-            ),
-        ]);
+        // $pembayaran->update([
+        //     'snap_token' => $this->midtrans->createSnapToken(
+        //         $pembayaran->transaksi->fresh([
+        //             'pelanggan',
+        //             'transaksiDetail.layanan',
+        //             'pembayaran',
+        //         ]),
+        //     ),
+        // ]);
     }
 
     /**
