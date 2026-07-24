@@ -3,20 +3,21 @@
         <h1 class="md:self-start text-ajeng-white text-2xl md:text-4xl font-semibold">Reservasi Laundry</h1>
         <form action="" class="w-full grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4">
             <x-input type="text" name="name" placeholder="Nama" />
-            <x-input type="text" name="name" placeholder="Alamat" />
-            <x-input type="text" name="name" placeholder="Whatsapp" />
+            <x-input type="text" name="address" placeholder="Alamat" />
+            <x-input type="text" name="whatsapp-number" placeholder="Whatsapp" />
+
             <x-select name="layanan" required>
-                <option value="" disabled selected class="text-ajeng-gray-2">-- Pilih Layanan Laundry --</option>
+                <option value="" disabled selected class="text-ajeng-gray-2">Pilih Layanan Laundry</option>
                 <option value="cuci_kering">Cuci Kering</option>
                 <option value="cuci_setrika">Cuci + Setrika</option>
                 <option value="setrika_saja">Setrika Saja</option>
             </x-select>
 
-            <x-datepicker name="tanggal_reservasi" required />
-            <x-datepicker name="tanggal_ambil" required />
+            <x-datepicker name="date_picker" placeholder="Tanggal Pengambilan" required/>
+            <x-timepicker name="time_picker" placeholder="Jam Pengambilan" required/>
 
             <button type="submit"
-                class="w-full bg-ajeng-white rounded-4xl px-4 py-3 text-ajeng-pink text-lg font-semibold hover:scale-[1.05] transition-all drop-shadow-lg cursor-pointer">
+                class="max-w-60 bg-ajeng-white rounded-4xl px-4 py-3 text-ajeng-pink text-lg font-semibold hover:bg-ajeng-bg-pink-1 transition-all cursor-pointer">
                 Buat Reservasi
             </button>
         </form>

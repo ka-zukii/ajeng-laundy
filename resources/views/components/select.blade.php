@@ -7,7 +7,7 @@
             name="{{ $name }}" 
             id="{{ $name }}"
             {{ $attributes->merge([
-                'class' => 'w-full px-4 py-3 pr-10 border-2 border-ajeng-gray-3 rounded-4xl focus:outline-none focus:border-ajeng-pink focus:ring-1 focus:ring-ajeng-pink transition-all text-ajeng-black bg-ajeng-white cursor-pointer appearance-none'
+                'class' => 'w-full px-4 py-2.5 pr-10 rounded-4xl focus:outline-none text-ajeng-black bg-ajeng-white cursor-pointer appearance-none'
             ]) }}
         >
             {{ $slot }}
