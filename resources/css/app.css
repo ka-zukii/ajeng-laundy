@@ -1,25 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-poppins: 'Poppins', sans-serif;
+    --font-poppins: "Poppins", sans-serif;
 
-    --color-ajeng-white: #FFFFFF;
+    --color-ajeng-white: #ffffff;
     --color-ajeng-black: #000000;
-    --color-ajeng-pink: #FF7797;
-    
-    --color-ajeng-dark-1: #4B4B4B;
+    --color-ajeng-pink: #ff7797;
+
+    --color-ajeng-dark-1: #4b4b4b;
     --color-ajeng-dark-2: #424242;
-    
+
     --color-ajeng-gray-1: #929292;
-    --color-ajeng-gray-2: #A9A9A9;
-    --color-ajeng-gray-3: #BDB9B9;
-    --color-ajeng-gray-4: #DEDEDE;
-    --color-ajeng-gray-5: #F4F4F4;
-    
-    --color-ajeng-bg-pink-1: #FFF1F4;
-    --color-ajeng-bg-pink-2: #FDF5F7;
+    --color-ajeng-gray-2: #a9a9a9;
+    --color-ajeng-gray-3: #bdb9b9;
+    --color-ajeng-gray-4: #dedede;
+    --color-ajeng-gray-5: #f4f4f4;
+
+    --color-ajeng-bg-pink-1: #fff1f4;
+    --color-ajeng-bg-pink-2: #fdf5f7;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+.animate-float {
+    animation: float 6s ease-in-out infinite;
 }
