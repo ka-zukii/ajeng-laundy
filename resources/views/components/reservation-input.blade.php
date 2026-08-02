@@ -8,9 +8,9 @@
 
             <x-select name="layanan" required>
                 <option value="" disabled selected class="text-ajeng-gray-2">Pilih Layanan Laundry</option>
-                <option value="cuci_kering">Cuci Kering</option>
-                <option value="cuci_setrika">Cuci + Setrika</option>
-                <option value="setrika_saja">Setrika Saja</option>
+                <option value="cuci_kering">Daily Kiloan</option>
+                <option value="cuci_setrika">Daily Satuan</option>
+                <option value="setrika_saja">Setrika Kiloan</option>
             </x-select>
 
             <x-datepicker name="date_picker" placeholder="Tanggal Pengambilan" required/>
