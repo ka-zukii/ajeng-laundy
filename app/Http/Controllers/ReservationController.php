@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\Reservation\ReservationService;
 use Carbon\Carbon;
-use DateTime;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -26,7 +25,6 @@ class ReservationController extends Controller
      */
     public function store(Request $request, ReservationService $reservationService)
     {
-        @dd($request);
         $validateData = $request->validate([
             'name' => 'required|string',
             'address' => 'required|string',
@@ -46,6 +44,12 @@ class ReservationController extends Controller
 
         try {
             $reservation = $reservationService->create($validateData);
+            $reservation->load('transaksi');
+
+            return response()->json([
+                'message' => 'Reservasi dan Transaksi berhasil dibuat',
+                'data' => $reservation
+            ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Gagal membuat reservasi',
