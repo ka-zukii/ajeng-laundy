@@ -22,9 +22,9 @@
 
                 <div class="flex flex-col gap-2 sm:gap-3 md:gap-5 mt-6 md:mt-12 lg:mt-20">
 
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&q=80" alt="Mobile Payment" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
+                    <img src="/assets/payment-images/gopay.png" alt="Mobile Payment" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
 
-                    <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?w=300&q=80" alt="POS Terminal" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
+                    <img src="/assets/payment-images/shopeepay.png" alt="POS Terminal" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
                 </div>
 
 
@@ -38,8 +38,8 @@
                 </div>
 
                 <div class="flex flex-col gap-2 sm:gap-3 md:gap-5 mt-6 md:mt-12 lg:mt-20">
-                    <img src="https://images.unsplash.com/photo-1574015974293-817f0ebebb74?w=300&q=80" alt="Holding Card" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
-                    <img src="https://images.unsplash.com/photo-1556742208-999815fca738?w=300&q=80" alt="Online Checkout" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
+                    <img src="/assets/payment-images/transfer.png" alt="Holding Card" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
+                    <img src="/assets/payment-images/credit-card.png" alt="Online Checkout" class="w-20 h-20 sm:w-24 sm:h-24 md:w-36 md:h-36 object-cover rounded-xl md:rounded-3xl shadow-lg opacity-90 hover:opacity-100 transition-opacity cursor-pointer">
                 </div>
 
             </div>
