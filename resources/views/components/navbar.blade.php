@@ -1,4 +1,4 @@
-<nav class="relative flex w-full items-center justify-between px-6 py-5 bg-ajeng-white font-poppins border-b border-ajeng-gray-5 lg:border-none shadow-sm lg:shadow-none">
+<nav class="sticky top-0 z-50 flex w-full items-center justify-between px-6 py-5 bg-ajeng-white/90 backdrop-blur-md font-poppins border-b border-ajeng-gray-5 lg:border-none shadow-sm lg:shadow-none">
     
     <div class="flex items-center">
         <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
@@ -17,9 +17,10 @@
     </div>
 
     <div class="hidden lg:flex flex-row gap-8 xl:gap-12 items-center justify-center text-ajeng-black text-[15px] font-medium">
-        <a href="" class="hover:text-ajeng-pink transition-colors">Beranda</a>
-        <a href="" class="hover:text-ajeng-pink transition-colors">Layanan</a>
-        <a href="" class="hover:text-ajeng-pink transition-colors">Syarat & Ketentuan</a>
+        <a href="#beranda" class="hover:text-ajeng-pink transition-colors">Beranda</a>
+        <a href="#tentang" class="hover:text-ajeng-pink transition-colors">Tentang</a>
+        <a href="#layanan" class="hover:text-ajeng-pink transition-colors">Layanan</a>
+        <a href="#faq" class="hover:text-ajeng-pink transition-colors">FAQ</a>
         <a href="" class="hover:text-ajeng-pink transition-colors">Cek Cucian Kamu</a>
     </div>
 
@@ -31,11 +32,12 @@
     </div>
 
     <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-ajeng-white shadow-lg flex-col z-50 lg:hidden border-t border-ajeng-gray-4 text-ajeng-black font-medium">
-        <a href="" class="px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Beranda</a>
-        <a href="" class="px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Layanan</a>
-        <a href="" class="px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Syarat & Ketentuan</a>
-        <a href="" class="px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Cek Cucian Kamu</a>
-        <a href="" class="px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Masuk</a>
+        <a href="#beranda" class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Beranda</a>
+        <a href="#tentang" class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Tentang</a>
+        <a href="#layanan" class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Layanan</a>
+        <a href="#faq" class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">FAQ</a>
+        <a href="" class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Cek Cucian Kamu</a>
+        <a href="" class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Masuk</a>
         <div class="px-6 py-5 bg-ajeng-gray-5">
             <a href="" class="block w-full text-center px-5 py-3 border border-ajeng-gray-3 bg-ajeng-white rounded-lg hover:border-ajeng-pink hover:text-ajeng-pink transition-all">
                 Get In Touch

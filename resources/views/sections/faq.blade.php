@@ -19,7 +19,7 @@
     ];
 @endphp
 
-<section class="w-full px-6 md:px-8 py-16 md:py-24 bg-white font-poppins flex justify-center">
+<section id="faq" class="w-full px-6 md:px-8 py-16 md:py-24 bg-white font-poppins flex justify-center">
     
     <div class="max-w-3xl w-full flex flex-col gap-6 md:gap-8">
 

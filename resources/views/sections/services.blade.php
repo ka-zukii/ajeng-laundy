@@ -1,4 +1,4 @@
-<section class="w-full px-6 md:px-8 py-16 md:py-24 flex flex-col gap-4 md:gap-6 items-center justify-center">
+<section id="layanan" class="w-full px-6 md:px-8 py-16 md:py-24 flex flex-col gap-4 md:gap-6 items-center justify-center">
 
     <h2 class="text-ajeng-black font-bold text-3xl md:text-4xl lg:text-5xl text-center tracking-tight">
         Layanan Ajeng Laundry

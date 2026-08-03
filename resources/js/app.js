@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("mobile-menu-button");
     const menu = document.getElementById("mobile-menu");
+    const mobileLinks = document.querySelectorAll('.mobile-link')
 
     if (btn && menu) {
         btn.addEventListener("click", () => {
@@ -13,6 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+        });
+    });
 });
 
 
