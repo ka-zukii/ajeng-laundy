@@ -1,4 +1,4 @@
-<section class="w-full px-4 md:px-8 py-6 font-poppins">
+<section id="beranda" class="w-full px-4 md:px-8 py-6 font-poppins">
     <div
         class="relative w-full rounded-[40px] overflow-hidden bg-ajeng-white flex flex-col items-center justify-center min-h-125 md:min-h-160 2xl:min-h-200 px-6 py-20 text-center">
         <div class="relative z-10 flex flex-col items-center max-w-4xl pb-10 md:pb-0">
