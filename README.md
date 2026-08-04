@@ -13,7 +13,7 @@
 
 ## 📌 Tentang Project
 
-**Sipakar Laundry** adalah sistem informasi manajemen dan sistem pakar berbasis web yang dirancang untuk mengoptimalkan operasional usaha laundry, pencatatan transaksi, pengolahan data pelanggan, hingga diagnosa/layanan pakar pendukung.
+**Sipakar Laundry** adalah sistem informasi manajemen dan sistem pakar berbasis web yang dirancang untuk mengoptimalkan operasional usaha laundry, pencatatan transaksi, dan pengolahan data pelanggan.
 
 ---
 
@@ -32,7 +32,7 @@
 
 - [x] Manajemen Transaksi & Order Laundry
 - [x] Manajemen Data Pelanggan & Layanan
-- [x] Sistem Pakar / Diagnosa Support
+- [x] Sistem Pakar (Estimasi & Prioritas Laundry)
 - [x] Laporan & Riwayat Operasional
 
 ---
@@ -41,7 +41,7 @@
 
 1. **Clone Repository**
     ```bash
-    git clone [https://github.com/kampusriset/24g_laravel_sipakar_laundry.git](https://github.com/kampusriset/24g_laravel_sipakar_laundry.git)
+    git clone https://github.com/kampusriset/24g_laravel_sipakar_laundry.git
     cd 24g_laravel_sipakar_laundry
     ```
 2. **Install Dependensi PHP & Node.js**
