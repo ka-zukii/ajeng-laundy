@@ -25,7 +25,7 @@
         <a href="#tentang" class="hover:text-ajeng-pink transition-colors">Tentang</a>
         <a href="#layanan" class="hover:text-ajeng-pink transition-colors">Layanan</a>
         <a href="#faq" class="hover:text-ajeng-pink transition-colors">FAQ</a>
-        <a href="/cek-pesanan" class="hover:text-ajeng-pink transition-colors">Cek Cucian Kamu</a>
+        <a href="/cek-pesanan" class="hover:text-ajeng-pink transition-colors">Cek Pesanan Kamu</a>
     </div>
 
     <div class="hidden lg:flex flex-row gap-6 items-center justify-center text-[15px] font-medium">
@@ -46,9 +46,9 @@
             class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Layanan</a>
         <a href="#faq"
             class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">FAQ</a>
-        <a href=""
+        <a href="/cek-pesanan"
             class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Cek
-            Cucian Kamu</a>
+            Pesanan Kamu</a>
         <a href=""
             class="mobile-link px-6 py-4 border-b border-ajeng-gray-5 hover:bg-ajeng-bg-pink-2 hover:text-ajeng-pink">Masuk</a>
         <div class="px-6 py-5 bg-ajeng-gray-5">
