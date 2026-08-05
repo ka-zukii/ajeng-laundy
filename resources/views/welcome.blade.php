@@ -1,6 +1,6 @@
 <x-layout>
 
-    @include('sections.hero')
+    @include('sections.hero', ['layanans' => $layanans])
     @include('sections.about')
     @include('sections.services')
     @include('sections.features')

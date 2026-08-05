@@ -6,6 +6,7 @@ use App\Enums\JenisPerhitungan;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
     'nama_layanan',
@@ -37,5 +38,10 @@ class Layanan extends Model
     public function transaksiDetail(): HasMany
     {
         return $this->hasMany(TransaksiDetail::class);
+    }
+
+    public function reservations(): HasOne
+    {
+        return $this->hasOne(Reservation::class);
     }
 }
