@@ -8,6 +8,7 @@ use App\Services\Transaksi\TransactionCodeService;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
@@ -56,5 +57,10 @@ class Transaksi extends Model
     public function pembayaran(): HasOne
     {
         return $this->hasOne(Pembayaran::class);
+    }
+
+    public function reservation(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
     }
 }
