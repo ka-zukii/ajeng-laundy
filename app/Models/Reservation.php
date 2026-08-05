@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 #[Fillable([
+    'pelanggan_id',
+    'layanan_id',
     'transaksi_id',
     'tanggal_penjemputan',
     'status_reservation',
@@ -26,5 +28,10 @@ class Reservation extends Model
     public function transaksi(): BelongsTo
     {
         return $this->belongsTo(Transaksi::class);
+    }
+
+    public function layanan(): BelongsTo
+    {
+        return $this->belongsTo(Layanan::class);
     }
 }

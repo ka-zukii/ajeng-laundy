@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\PaymentController;
 use App\Models\Layanan;
 use Illuminate\Support\Facades\Route;
@@ -7,6 +8,10 @@ use Illuminate\Http\Request;
 Route::get('/', function () {
     $layanans = Layanan::all();
     return view('welcome', compact('layanans'));
+});
+
+Route::get('/cek-pesanan', function () {
+    return view('cek-pesanan');
 });
 
 Route::get(

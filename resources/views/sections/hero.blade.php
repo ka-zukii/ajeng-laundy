@@ -29,5 +29,5 @@
 
     </div>
 
-    <x-reservation-input />
+    <x-reservation-input :layanans="$layanans"/>
 </section>

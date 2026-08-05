@@ -2,13 +2,13 @@ import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
 import "flatpickr/dist/themes/airbnb.css";
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
     flatpickr(".ajeng-datepicker", {
         dateFormat: "Y-m-d",
         altInput: true,
         altFormat: "d F Y",
         minDate: "today",
-        disableMobile: "true"
+        disableMobile: "true",
     });
 
     flatpickr(".ajeng-timepicker", {
@@ -17,6 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         dateFormat: "H:i",
         altInput: true,
         altFormat: "h:i K",
-        disableMobile: "true"
+        disableMobile: "true",
     });
 });
