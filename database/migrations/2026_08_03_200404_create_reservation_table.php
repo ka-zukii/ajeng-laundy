@@ -14,7 +14,9 @@ return new class extends Migration
     {
         Schema::create('reservation', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('transaksi_id')->constrained('transaksi')->cascadeOnDelete();
+            $table->foreignId('pelanggan_id')->constrained('pelanggan')->cascadeOnDelete();
+            $table->foreignId('layanan_id')->constrained('layanan')->cascadeOnDelete();
+            $table->foreignId('transaksi_id')->nullable()->constrained('transaksi')->cascadeOnDelete();
             $table->dateTime('tanggal_penjemputan');
             $table->enum("status_reservation", array_map(fn($statusReservation) => $statusReservation->value, StatusReservation::cases()));
             $table->timestamps();

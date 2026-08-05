@@ -2,7 +2,7 @@
 
 <!-- BANNER PROJECT -->
 <p align="center">
-  <img src="https://via.placeholder.com/1200x400.png?text=Sistem+Pakar+Laundry+(Sipakar+Laundry)" alt="Banner Sipakar Laundry" width="100%">
+  <img src="public/assets/logo-rectangle.png" alt="Banner Sipakar Laundry" width="100%">
 </p>
 
 <p align="center">
