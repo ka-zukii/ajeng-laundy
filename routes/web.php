@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 Route::get('/', [PageController::class, 'index']);
 Route::get('/cek-pesanan', [PageController::class, 'cekPesanan']);
 Route::get('/daftar-transaksi', [PageController::class, 'daftarTransaksi']);
+Route::get('/detail-transaksi', [PageController::class, 'detailTransaksi']);
+Route::get('/dashboard-pengguna', [PageController::class, 'dashboardPengguna']);
 
 Route::get(
     '/payment/{transaksi}',
