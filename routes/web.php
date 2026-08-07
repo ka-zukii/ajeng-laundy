@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReservationController;
 use App\Models\Layanan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -27,3 +28,7 @@ Route::get('/debug', function (Request $request) {
         'url' => $request->fullUrl(),
     ];
 });
+
+// Reservation
+Route::resource('/reservation', ReservationController::class);
+Route::get('/reservation/success/{id}', [ReservationController::class, 'success'])->name('reservation.success');

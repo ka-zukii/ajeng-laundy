@@ -34,4 +34,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(Layanan::class);
     }
+
+    public function pelanggan(): BelongsTo
+    {
+        return $this->belongsTo(Pelanggan::class);
+    }
 }
