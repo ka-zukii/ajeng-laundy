@@ -20,4 +20,12 @@ class PageController extends Controller
     public function daftarTransaksi(){
         return view('daftar-transaksi');
     }
+
+    public function detailTransaksi(){
+        return view('detail-transaksi');
+    }
+
+    public function dashboardPengguna(){
+        return view('dashboard-pengguna');
+    }
 }
