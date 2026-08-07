@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reservation;
 use App\Models\User;
 use App\Services\Reservation\ReservationService;
 use Carbon\Carbon;
@@ -18,6 +19,12 @@ class ReservationController extends Controller
         return [
             $userData
         ];
+    }
+
+    public function success($id)
+    {
+        $reservation = Reservation::with(['transaksi', 'pelanggan', 'layanan'])->findOrFail($id);
+        return view('reservation-success', compact('reservation'));
     }
 
     /**
@@ -44,17 +51,11 @@ class ReservationController extends Controller
 
         try {
             $reservation = $reservationService->create($validateData);
-            $reservation->load('transaksi');
-
-            return response()->json([
-                'message' => 'Reservasi dan Transaksi berhasil dibuat',
-                'data' => $reservation
-            ], 201);
+            $reservation->load(['transaksi']);
+            
+            return redirect()->route('reservation.success', ['id' => $reservation->id]);
         } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'Gagal membuat reservasi',
-                'error' => $e->getMessage()
-            ], 500);
+           return back()->withInput()->withErrors(['error' => $e->getMessage()]);
         }
     }
 

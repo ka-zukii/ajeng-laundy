@@ -1,18 +1,17 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
-use App\Models\Layanan;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-Route::get('/', function () {
-    $layanans = Layanan::all();
-    return view('welcome', compact('layanans'));
-});
-
-Route::get('/cek-pesanan', function () {
-    return view('cek-pesanan');
-});
+// Page routes
+Route::get('/', [PageController::class, 'index']);
+Route::get('/cek-pesanan', [PageController::class, 'cekPesanan']);
+Route::get('/daftar-transaksi', [PageController::class, 'daftarTransaksi']);
+Route::get('/detail-transaksi', [PageController::class, 'detailTransaksi']);
+Route::get('/dashboard-pengguna', [PageController::class, 'dashboardPengguna']);
 
 Route::get(
     '/payment/{transaksi}',
@@ -27,3 +26,7 @@ Route::get('/debug', function (Request $request) {
         'url' => $request->fullUrl(),
     ];
 });
+
+// Reservation
+Route::resource('/reservation', ReservationController::class);
+Route::get('/reservation/success/{id}', [ReservationController::class, 'success'])->name('reservation.success');

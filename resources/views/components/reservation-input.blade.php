@@ -1,7 +1,7 @@
 <section class="w-full py-6 font-poppins">
     <div class="flex 2xl:max-w-7xl 2xl:mx-auto flex-col items-center bg-ajeng-pink p-6 gap-4 rounded-4xl drop-shadow-xl">
         <h1 class="md:self-start text-ajeng-white text-2xl md:text-4xl font-semibold">Reservasi Laundry</h1>
-        <form action="/api/reservation" class="w-full grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4" method="POST">
+        <form action="{{ route('reservation.store') }}" class="w-full grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4" method="POST">
             @csrf
             <x-input type="text" name="name" placeholder="Nama" />
             <x-input type="text" name="address" placeholder="Alamat" />
