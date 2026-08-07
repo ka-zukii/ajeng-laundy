@@ -1,13 +1,24 @@
 <?php
 
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Layanan;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $layanans = Layanan::all();
     return view('welcome', compact('layanans'));
+})->name('home');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 Route::get('/cek-pesanan', function () {
@@ -27,3 +38,5 @@ Route::get('/debug', function (Request $request) {
         'url' => $request->fullUrl(),
     ];
 });
+
+require __DIR__ . '/auth.php';
