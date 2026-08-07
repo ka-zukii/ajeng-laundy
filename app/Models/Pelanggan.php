@@ -20,4 +20,9 @@ class Pelanggan extends Model
     {
         return $this->hasMany(Transaksi::class);
     }
+
+    public function reservation(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }
