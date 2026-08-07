@@ -27,3 +27,11 @@ Route::get('/debug', function (Request $request) {
         'url' => $request->fullUrl(),
     ];
 });
+
+Route::get('/detail-transaksi',function(){
+    return view ('detail-transaksi');
+});
+
+Route::get('/dashbord-pengguna',function(){
+    return view ('dashbord-pengguna');
+});
