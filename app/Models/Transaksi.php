@@ -59,8 +59,8 @@ class Transaksi extends Model
         return $this->hasOne(Pembayaran::class);
     }
 
-    public function reservation(): HasMany
+    public function reservation(): HasOne
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasOne(Reservation::class);
     }
 }

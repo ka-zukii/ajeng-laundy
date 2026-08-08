@@ -23,7 +23,7 @@ class ReservationService
                 'pelanggan_id' => $pelanggan->id,
                 'layanan_id' => $data['layanan'],
                 'tanggal_penjemputan' => $data['tanggal_penjemputan'],
-                'status_reservation' => StatusReservation::MENUNGGU
+                'status_reservation' => StatusReservation::DIJADWALKAN
             ]);
 
             return $reservation;
