@@ -67,7 +67,7 @@ class PageController extends Controller
 
         $reservasis->appends(['keyword' => $keyword]);
 
-        return view('daftar-transaksi', compact('reservasis'));
+        return view('daftar-reservasi', compact('reservasis'));
     }
 
     public function detailTransaksi(){

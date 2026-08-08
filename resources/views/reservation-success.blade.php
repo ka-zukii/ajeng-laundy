@@ -33,7 +33,8 @@
                                 </svg>
                                 ID Reservasi
                             </span>
-                            <span class="font-bold text-gray-800">#{{ $reservation->id }}</span>
+                            <span class="font-bold text-gray-800">
+                                #RES-{{ str_pad($reservation->id, 4, '0', STR_PAD_LEFT) }}</span>
                         </div>
 
                         <div class="flex flex-col gap-1 border-b border-pink-100 pb-2">
@@ -59,7 +60,6 @@
                                 </svg>
                                 Status
                             </span>
-                            <!-- Memanggil label() dari Enum -->
                             <span
                                 class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-xs font-bold uppercase tracking-wider">
                                 {{ $reservation->status_reservation->label() }}
