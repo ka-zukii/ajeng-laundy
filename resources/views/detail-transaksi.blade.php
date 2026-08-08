@@ -3,7 +3,7 @@
         // Header
         'invoiceId' => 'AJL-20260627-R4X1M9',
         'orderDate' => '17 Januari 2026',
-
+    
         // Kartu Kiri - Rincian Cucian
         'serviceName' => 'Regular ( Daily Kiloan )',
         'serviceWeight' => '5kg',
@@ -11,7 +11,7 @@
         'estimatedDate' => '19 Januari 2026',
         'transactionDate' => '-',
         'serviceFeeLabel' => '40.000 / 5kg',
-
+    
         // Kartu Kanan - Rincian Pesanan
         'customerName' => 'Anang Setiaji',
         'orderStatus' => 'Sukses',
@@ -21,7 +21,7 @@
         'adminFee' => 'Rp 500',
         'serviceFee' => 'Rp 1.000',
         'totalFinal' => 'Rp 41.000',
-
+    
         // Metode Pembayaran & Aksi
         'paymentMethod' => 'QRIS',
         'downloadUrl' => '#',
@@ -49,7 +49,7 @@
 
                 <div class="flex gap-4">
                     {{-- Ilustrasi / Icon Laundry --}}
-                    <div class="flex-shrink-0 w-16 h-16 rounded-xl bg-sky-50 flex items-center justify-center text-3xl">
+                    <div class="shrink-0 w-16 h-16 rounded-xl bg-sky-50 flex items-center justify-center text-3xl">
                         <span role="img" aria-label="laundry basket">🧺</span>
                     </div>
 
