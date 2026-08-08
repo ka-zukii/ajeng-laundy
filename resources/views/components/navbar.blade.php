@@ -1,5 +1,5 @@
 @php
-    $home = route('home');
+    $home = '/';
 @endphp
 
 <nav
@@ -38,9 +38,9 @@
         @endguest
 
         @auth
-            <a href="/dashboard" class="text-ajeng-black hover:text-ajeng-pink transition-colors">Masuk</a>            
+            <a href="/dashboard" class="text-ajeng-black hover:text-ajeng-pink transition-colors">Masuk</a>
         @endauth
-        
+
         <a href=""
             class="px-5 py-2 text-ajeng-black border border-ajeng-gray-3 rounded-lg hover:border-ajeng-pink hover:text-ajeng-pink hover:bg-ajeng-bg-pink-2 transition-all">
             Get In Touch
