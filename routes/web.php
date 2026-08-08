@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardPelangganController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -7,9 +8,7 @@ use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardPelangganController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
