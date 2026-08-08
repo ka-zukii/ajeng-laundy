@@ -1,4 +1,4 @@
-<x-layout>
+<x-landing-page-layout>
 
     @include('sections.hero', ['layanans' => $layanans])
     @include('sections.about')
@@ -8,4 +8,4 @@
     @include('sections.testimonials')
     @include('sections.faq')
 
-</x-layout>
+</x-landing-page-layout>
