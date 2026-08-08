@@ -1,12 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+/* Saya gabungkan import font Poppins dan Caveat di sini */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap");
 @import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
+    /* Font Configurations */
     --font-poppins: "Poppins", sans-serif;
+    --font-hand: "Caveat", cursive; /* Tambahan font untuk Cek Cucian */
 
+    /* Warna Default Ajeng Laundry */
     --color-ajeng-white: #ffffff;
     --color-ajeng-black: #000000;
     --color-ajeng-pink: #ff7797;
@@ -22,6 +26,19 @@
 
     --color-ajeng-bg-pink-1: #fff1f4;
     --color-ajeng-bg-pink-2: #fdf5f7;
+
+    /* Warna Primary Tambahan untuk komponen Cek Cucian */
+    --color-primary: #e37691;
+    --color-primary-50: #fdf8f9;
+    --color-primary-100: #fbeff2;
+    --color-primary-600: #d9607e;
+}
+
+/* Base Styles untuk memastikan seluruh halaman pakai font Poppins */
+@layer base {
+    body {
+        font-family: var(--font-poppins);
+    }
 }
 
 @keyframes float {

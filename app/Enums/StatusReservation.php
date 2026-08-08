@@ -7,13 +7,15 @@ enum StatusReservation: string
     case DIJADWALKAN = 'dijadwalkan';
     case MENUNGGU = 'menunggu';
     case SELESAI = 'selesai';
+    case DIBATALKAN = 'dibatalkan';
 
     public function label(): string
     {
         return match ($this) {
             self::DIJADWALKAN => 'Dijadwalkan',
             self::MENUNGGU => 'Menunggu Penjemputan',
-            self::SELESAI => 'Selesai'
+            self::SELESAI => 'Selesai',
+            self::DIBATALKAN => 'Dibatalkan',
         };
     }
 

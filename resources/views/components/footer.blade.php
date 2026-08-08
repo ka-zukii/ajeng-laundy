@@ -10,29 +10,43 @@
             </div>
 
             <div class="flex flex-wrap sm:flex-nowrap gap-10 md:gap-16 lg:gap-24">
-                
+
                 <div class="flex flex-col gap-4">
                     <h4 class="font-bold text-lg md:text-xl">Company</h4>
                     <ul class="flex flex-col gap-3">
-                        <li><a href="#" class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">About Us</a></li>
-                        <li><a href="#" class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Contact</a></li>
+                        <li><a href="#"
+                                class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">About
+                                Us</a></li>
+                        <li><a href="#"
+                                class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Contact</a>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="flex flex-col gap-4">
                     <h4 class="font-bold text-lg md:text-xl">Social</h4>
                     <ul class="flex flex-col gap-3">
-                        <li><a href="#" class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Instagram</a></li>
-                        <li><a href="#" class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Tiktok</a></li>
-                        <li><a href="#" class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">X</a></li>
+                        <li><a href="#"
+                                class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Instagram</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Tiktok</a>
+                        </li>
+                        <li><a href="#"
+                                class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">X</a>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="flex flex-col gap-4">
                     <h4 class="font-bold text-lg md:text-xl">Legal</h4>
                     <ul class="flex flex-col gap-3">
-                        <li><a href="#" class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Privacy Policy</a></li>
-                        <li><a href="#" class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Terms of Service</a></li>
+                        <li><a href="#"
+                                class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Privacy
+                                Policy</a></li>
+                        <li><a href="#"
+                                class="text-white/90 hover:text-white hover:underline transition-all text-[15px] md:text-base">Terms
+                                of Service</a></li>
                     </ul>
                 </div>
 
