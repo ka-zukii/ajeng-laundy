@@ -6,6 +6,7 @@ use App\Enums\JenisPerhitungan;
 use App\Models\Layanan;
 use App\Models\NodaPakaian;
 use App\Models\Pelanggan;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Slider;
@@ -22,6 +23,9 @@ class TransaksiForm
     {
         return $schema
             ->components([
+                Hidden::make('reservation_id')
+                    ->default(request()->query('reservation_id'))
+                    ->dehydrated(false),
                 Section::make('Informasi Pelanggan')
                     ->description('Pilih pelanggan atau tambahkan pelanggan baru.')
                     ->icon('heroicon-o-user')
@@ -35,6 +39,7 @@ class TransaksiForm
                             ->required()
                             ->prefixIcon('heroicon-m-user')
                             ->hint('Pilih pelanggan yang melakukan transaksi.')
+                            ->default(request()->query('pelanggan_id'))
                             ->getOptionLabelFromRecordUsing(
                                 fn(Pelanggan $record) => "{$record->nama} • {$record->nomor_telepon}"
                             )
@@ -62,18 +67,33 @@ class TransaksiForm
                                     ->label('Nama')
                                     ->prefixIcon('heroicon-m-user')
                                     ->disabled()
-                                    ->dehydrated(false),
+                                    ->dehydrated(false)
+                                    ->default(
+                                        fn() => request()->has('pelanggan_id')
+                                            ? Pelanggan::find(request()->query('pelanggan_id'))?->nama
+                                            : null
+                                    ),
                                 TextInput::make('nomor_telepon')
                                     ->label('Nomor Telepon')
                                     ->prefixIcon('heroicon-m-phone')
                                     ->disabled()
-                                    ->dehydrated(false),
+                                    ->dehydrated(false)
+                                    ->default(
+                                        fn() => request()->has('pelanggan_id')
+                                            ? Pelanggan::find(request()->query('pelanggan_id'))?->nomor_telepon
+                                            : null
+                                    ),
                                 Textarea::make('alamat_pelanggan')
                                     ->label('Alamat')
                                     ->rows(3)
                                     ->disabled()
                                     ->dehydrated(false)
-                                    ->columnSpanFull(),
+                                    ->columnSpanFull()
+                                    ->default(
+                                        fn() => request()->has('pelanggan_id')
+                                            ? Pelanggan::find(request()->query('pelanggan_id'))?->alamat
+                                            : null
+                                    ),
                             ]),
                     ]),
                 Section::make('Detail Laundry')
@@ -90,15 +110,14 @@ class TransaksiForm
                                     ->required()
                                     ->live()
                                     ->prefixIcon('heroicon-m-archive-box')
-
-                                    ->hint('Pilih jenis layanan laundry.'),
+                                    ->hint('Pilih jenis layanan laundry.')
+                                    ->default(request()->query('layanan_id')),
                                 Select::make('noda_pakaian_id')
                                     ->label('Noda Pakaian')
                                     ->relationship('transaksiDetail.nodaPakaian', 'nama_noda')
                                     ->searchable()
                                     ->preload()
                                     ->prefixIcon('heroicon-m-beaker')
-
                                     ->hint('Pilih noda jika ada.')
                                     ->createOptionForm([
                                         TextInput::make('nama_noda')

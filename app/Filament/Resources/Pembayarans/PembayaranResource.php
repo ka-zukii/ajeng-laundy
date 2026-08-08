@@ -20,7 +20,7 @@ class PembayaranResource extends Resource
 {
     protected static ?string $model = Pembayaran::class;
 
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 7;
     protected static ?string $navigationLabel = 'Pembayaran';
     protected static string|UnitEnum|null $navigationGroup = 'Transaksi';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Banknotes;
