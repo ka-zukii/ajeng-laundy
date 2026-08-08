@@ -116,7 +116,9 @@
                 </div>
 
                 <!-- KARTU KODE TRANSAKSI -->
-                @if ($reservation->status_reservation === App\Enums\StatusReservation::MENUNGGU)
+                @if (
+                    $reservation->status_reservation === App\Enums\StatusReservation::MENUNGGU ||
+                        $reservation->status_reservation === App\Enums\StatusReservation::DIJADWALKAN)
                     <div class="bg-blue-50 p-4 rounded-2xl border-2 border-dashed border-blue-200 mb-6">
                         <p class="text-sm text-blue-500 text-center flex items-center justify-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
