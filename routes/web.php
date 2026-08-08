@@ -9,15 +9,27 @@ use Illuminate\Http\Request;
 // Page routes
 Route::get('/', [PageController::class, 'index']);
 Route::get('/cek-pesanan', [PageController::class, 'cekPesanan']);
-Route::get('/daftar-transaksi', [PageController::class, 'daftarTransaksi']);
-Route::get('/detail-transaksi', [PageController::class, 'detailTransaksi']);
 Route::get('/dashboard-pengguna', [PageController::class, 'dashboardPengguna']);
 
+// Fitur Cek Pesanan
+Route::get('/cek-pesanan', [PageController::class, 'cekPesanan'])->name('pesanan.cek');
+Route::post('/cek-pesanan/proses', [PageController::class, 'prosesCekPesanan'])->name('pesanan.proses');
+
+// Hasil Pencarian
+Route::get('/daftar-transaksi', [PageController::class, 'daftarTransaksi'])->name('transaksi.daftar');
+Route::get('/daftar-reservasi', [PageController::class, 'daftarReservasi'])->name('reservasi.daftar');
+
+// Payment route
 Route::get(
     '/payment/{transaksi}',
     PaymentController::class,
 )->name('payment');
 
+// Reservation routes
+Route::resource('/reservation', ReservationController::class);
+Route::get('/reservation/success/{id}', [ReservationController::class, 'success'])->name('reservation.success');
+
+// Debug route
 Route::get('/debug', function (Request $request) {
     return [
         'secure' => $request->secure(),
@@ -26,7 +38,3 @@ Route::get('/debug', function (Request $request) {
         'url' => $request->fullUrl(),
     ];
 });
-
-// Reservation
-Route::resource('/reservation', ReservationController::class);
-Route::get('/reservation/success/{id}', [ReservationController::class, 'success'])->name('reservation.success');

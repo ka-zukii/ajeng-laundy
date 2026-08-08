@@ -1,16 +1,16 @@
 <x-layout>
     <!-- Wrapper utama halaman, diberi background pink-50 (#fdf2f8) -->
-    <div class="min-h-screen bg-[#fdf2f8] p-4 sm:p-8 flex items-center justify-center" style="font-family: 'Poppins', sans-serif;">
+    <div class="min-h-screen bg-[#fdf2f8] p-4 sm:p-8 flex items-center justify-center"
+        style="font-family: 'Poppins', sans-serif;">
 
         <!-- Container Utama -->
         <div class="bg-white w-full max-w-6xl rounded-4xl shadow-sm border border-pink-50 p-8 md:p-10">
-            
+
             <!-- Judul -->
             <h2 class="text-3xl font-semibold text-[#f472b6] mb-8 tracking-wide">Daftar Pesanan</h2>
 
             <!-- Wrapper Tabel untuk Responsivitas -->
             <div class="overflow-x-auto">
-                <!-- border-separate dan border-spacing-0 penting agar radius di thead bisa bekerja -->
                 <table class="w-full text-left border-separate border-spacing-0 min-w-200">
                     <thead>
                         <tr class="bg-[#f472b6] text-white">
@@ -24,80 +24,137 @@
                         </tr>
                     </thead>
                     <tbody class="text-sm">
-                        <!-- Baris 1 -->
-                        <tr>
-                            <td class="py-4 px-6 text-[#f472b6] font-medium border-b border-pink-100">AJL-20260627-B7N2Q8</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">25 - Jun - 2026</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Rp 25.000</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Menunggu</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Pending</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Online</td>
-                            <td class="py-4 px-6 border-b border-pink-100">
-                                <a href="#" class="text-[#f472b6] font-medium hover:text-pink-600 hover:underline transition">Detail</a>
-                            </td>
-                        </tr>
-                        <!-- Baris 2 -->
-                        <tr>
-                            <td class="py-4 px-6 text-[#f472b6] font-medium border-b border-pink-100">AJL-20260627-R4X1M9</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">17 - Jun -2026</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Rp 35.000</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Sukses</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Diproses</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Online</td>
-                            <td class="py-4 px-6 border-b border-pink-100">
-                                <a href="#" class="text-[#f472b6] font-medium hover:text-pink-600 hover:underline transition">Detail</a>
-                            </td>
-                        </tr>
-                        <!-- Baris 3 -->
-                        <tr>
-                            <td class="py-4 px-6 text-[#f472b6] font-medium border-b border-pink-100">AJL-20260627-K8P5T2</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">12 - Mar - 2026</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Rp 15.000</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Sukses</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Selesai</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Offline</td>
-                            <td class="py-4 px-6 border-b border-pink-100">
-                                <a href="#" class="text-[#f472b6] font-medium hover:text-pink-600 hover:underline transition">Detail</a>
-                            </td>
-                        </tr>
-                        <!-- Baris 4 -->
-                        <tr>
-                            <td class="py-4 px-6 text-[#f472b6] font-medium border-b border-pink-100">AJL-20260627-W3J7F6</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">7 - Mar - 2026</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Rp 50.000</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Sukses</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Selesai</td>
-                            <td class="py-4 px-4 text-gray-700 border-b border-pink-100">Offline</td>
-                            <td class="py-4 px-6 border-b border-pink-100">
-                                <a href="#" class="text-[#f472b6] font-medium hover:text-pink-600 hover:underline transition">Detail</a>
-                            </td>
-                        </tr>
+
+                        {{-- Looping Data dari Database --}}
+                        @forelse ($transaksis as $transaksi)
+                            <tr>
+                                <td class="py-4 px-6 text-[#f472b6] font-medium border-b border-pink-100">
+                                    {{ $transaksi->kode_transaksi }}
+                                </td>
+                                <td class="py-4 px-4 text-gray-700 border-b border-pink-100">
+                                    {{ \Carbon\Carbon::parse($transaksi->created_at)->translatedFormat('d - M - Y') }}
+                                </td>
+                                <td class="py-4 px-4 text-gray-700 border-b border-pink-100">
+                                    Rp {{ number_format($transaksi->total_biaya, 0, ',', '.') }}
+                                </td>
+                                <td class="py-4 px-4 text-gray-700 border-b border-pink-100">
+
+                                    @php
+                                        $statusColor = $transaksi->pembayaran->status_pembayaran->color();
+                                        $badgeClass = match ($statusColor) {
+                                            'success' => 'bg-green-100 text-green-700 border-green-200',
+                                            'warning' => 'bg-yellow-100 text-yellow-700 border-yellow-200',
+                                            'danger' => 'bg-red-100 text-red-700 border-red-200',
+                                            default => 'bg-gray-100 text-gray-700 border-gray-200',
+                                        };
+                                    @endphp
+
+                                    <span
+                                        class="px-3 py-1 text-xs font-semibold rounded-full border {{ $badgeClass }}">
+                                        {{ $transaksi->pembayaran->status_pembayaran->label() ?? 'Belum Dibayar' }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-4 border-b border-pink-100">
+                                    @php
+                                        $statusColor = $transaksi->status_laundry->color();
+                                        $badgeClass = match ($statusColor) {
+                                            'success' => 'bg-green-100 text-green-700 border-green-200',
+                                            'warning' => 'bg-yellow-100 text-yellow-700 border-yellow-200',
+                                            'info' => 'bg-blue-100 text-blue-700 border-blue-200',
+                                            default => 'bg-gray-100 text-gray-700 border-gray-200',
+                                        };
+                                    @endphp
+
+                                    <span
+                                        class="px-3 py-1 text-xs font-semibold rounded-full border {{ $badgeClass }}">
+                                        {{ $transaksi->status_laundry->label() }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-4 text-gray-700 border-b border-pink-100">
+                                    <span
+                                        class="px-3 py-1 text-xs font-semibold rounded-full border bg-blue-100 text-blue-700 border-blue-200">
+                                        {{ $transaksi->reservation && $transaksi->reservation->id ? 'Online' : 'Offline' }}
+                                    </span>
+                                </td>
+                                <td class="py-4 px-6 border-b border-pink-100">
+                                    <a href=""
+                                        class="text-[#f472b6] font-medium hover:text-pink-600 hover:underline transition">Detail</a>
+                                </td>
+                            </tr>
+                        @empty
+                            {{-- Tampilan jika data kosong --}}
+                            <tr>
+                                <td colspan="7" class="py-8 text-center text-gray-500 font-medium">
+                                    Belum ada transaksi saat ini.
+                                </td>
+                            </tr>
+                        @endforelse
+
                     </tbody>
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <div class="flex items-center justify-center gap-3 mt-10">
-                <!-- Tombol Previous -->
-                <button class="w-10 h-10 rounded-full border border-[#f472b6] bg-pink-100 text-[#f472b6] flex items-center justify-center hover:bg-[#f472b6] hover:text-white transition duration-200">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                
-                <!-- Halaman Aktif -->
-                <button class="w-10 h-10 rounded-full bg-[#f8a5c2] text-white border border-[#f8a5c2] flex items-center justify-center font-medium shadow-sm">
-                    1
-                </button>
-                
-                <!-- Halaman Tidak Aktif -->
-                <button class="w-10 h-10 rounded-full border border-[#f472b6] text-[#f472b6] flex items-center justify-center font-medium hover:bg-pink-50 transition duration-200">
-                    2
-                </button>
-                
-                <!-- Tombol Next -->
-                <button class="w-10 h-10 rounded-full border border-[#f472b6] bg-pink-100 text-[#f472b6] flex items-center justify-center hover:bg-[#f472b6] hover:text-white transition duration-200">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
-            </div>
+            <!-- Custom Pagination -->
+            @if ($transaksis->hasPages())
+                <div class="flex items-center justify-center gap-3 mt-10">
+
+                    {{-- Tombol Previous --}}
+                    @if ($transaksis->onFirstPage())
+                        <button disabled
+                            class="w-10 h-10 rounded-full border border-pink-200 bg-pink-50 text-pink-300 flex items-center justify-center cursor-not-allowed">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                    @else
+                        <a href="{{ $transaksis->previousPageUrl() }}"
+                            class="w-10 h-10 rounded-full border border-[#f472b6] bg-pink-100 text-[#f472b6] flex items-center justify-center hover:bg-[#f472b6] hover:text-white transition duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </a>
+                    @endif
+
+                    {{-- Deretan Angka Halaman --}}
+                    @foreach ($transaksis->getUrlRange(1, $transaksis->lastPage()) as $page => $url)
+                        @if ($page == $transaksis->currentPage())
+                            <!-- Halaman Aktif -->
+                            <button
+                                class="w-10 h-10 rounded-full bg-[#f8a5c2] text-white border border-[#f8a5c2] flex items-center justify-center font-medium shadow-sm cursor-default">
+                                {{ $page }}
+                            </button>
+                        @else
+                            <!-- Halaman Tidak Aktif -->
+                            <a href="{{ $url }}"
+                                class="w-10 h-10 rounded-full border border-[#f472b6] text-[#f472b6] flex items-center justify-center font-medium hover:bg-pink-50 transition duration-200">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    {{-- Tombol Next --}}
+                    @if ($transaksis->hasMorePages())
+                        <a href="{{ $transaksis->nextPageUrl() }}"
+                            class="w-10 h-10 rounded-full border border-[#f472b6] bg-pink-100 text-[#f472b6] flex items-center justify-center hover:bg-[#f472b6] hover:text-white transition duration-200">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </a>
+                    @else
+                        <button disabled
+                            class="w-10 h-10 rounded-full border border-pink-200 bg-pink-50 text-pink-300 flex items-center justify-center cursor-not-allowed">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                                </path>
+                            </svg>
+                        </button>
+                    @endif
+
+                </div>
+            @endif
 
         </div>
     </div>

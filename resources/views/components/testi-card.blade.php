@@ -1,6 +1,7 @@
 @props(['quote' => '', 'name' => '', 'status' => '', 'image' => ''])
 
-<div class="flex flex-col justify-between bg-white rounded-2xl shadow-sm h-full font-poppins overflow-hidden transition-all duration-300 hover:-translate-y-3 hover:shadow-lg cursor-pointer">
+<div
+    class="flex flex-col justify-between bg-white rounded-2xl shadow-sm h-full font-poppins overflow-hidden transition-all duration-300 hover:-translate-y-3 hover:shadow-lg cursor-pointer">
     <div class="p-6 md:p-8 pb-12 grow">
         <p class="text-ajeng-black text-[15px] md:text-base leading-relaxed font-medium">
             "{{ $quote }}"
