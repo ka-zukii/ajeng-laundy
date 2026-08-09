@@ -12,6 +12,9 @@ use Carbon\Carbon;
 
 class FuzzyLaundryService
 {
+    private const JUMLAH_MESIN = 5;
+    private const WAKTU_SIKLUS_MESIN = 3;
+
     public function __construct(
         private DurationEvaluator $durationEvaluator,
         private PriorityEvaluator $priorityEvaluator
@@ -23,21 +26,26 @@ class FuzzyLaundryService
         array $data,
         Carbon $tanggalMasuk,
     ): array {
-
-        // 1. Ekstraksi dan Persiapan Data
         $berat = (float) ($data['berat'] ?? 0);
         $jumlah = (int) ($data['jumlah'] ?? 0);
         $tingkatKekotoran = (int) ($data['tingkat_kekotoran'] ?? 0);
 
         $lamaMenunggu = $tanggalMasuk->diffInHours(now());
-        $jumlahAntrean = $this->getQueueCount();
+        $jumlahAntreanTotal = $this->getQueueCount();
 
-        // 2. Eksekusi Fuzzy Rules
-        $durasiJam = $this->durationEvaluator->calculate(
+        $antreanPerMesin = (int) ceil($jumlahAntreanTotal / self::JUMLAH_MESIN);
+
+        $waktuTungguAntrean = floor($jumlahAntreanTotal / self::JUMLAH_MESIN) * self::WAKTU_SIKLUS_MESIN;
+
+        $waktuProsesPesanan = self::WAKTU_SIKLUS_MESIN + ($berat > 10 ? 1 : 0);
+
+        $totalDurasiFisik = $waktuTungguAntrean + $waktuProsesPesanan;
+
+        $durasiFuzzy = $this->durationEvaluator->calculate(
             berat: $berat,
             jumlah: $jumlah,
             tingkatKekotoran: $tingkatKekotoran,
-            jumlahAntrean: $jumlahAntrean
+            jumlahAntrean: $antreanPerMesin
         );
 
         $prioritas = $this->priorityEvaluator->calculate(
@@ -45,17 +53,15 @@ class FuzzyLaundryService
             lamaMenunggu: $lamaMenunggu
         );
 
-        // 3. Output Format
+        $durasiJanjiKePelanggan = (int) max($durasiFuzzy, $totalDurasiFisik);
+
         return [
-            'durasi_jam'       => $durasiJam,
-            'estimasi_selesai' => $tanggalMasuk->copy()->addHours($durasiJam),
+            'durasi_jam'       => $durasiJanjiKePelanggan,
+            'estimasi_selesai' => $tanggalMasuk->copy()->addHours($durasiJanjiKePelanggan),
             'prioritas'        => $prioritas,
         ];
     }
 
-    /**
-     * Menghitung jumlah antrean laundry aktif.
-     */
     private function getQueueCount(): int
     {
         return Transaksi::query()
