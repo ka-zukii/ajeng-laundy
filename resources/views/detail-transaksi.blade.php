@@ -198,4 +198,8 @@
             </div>
         </div>
     </div>
+
+    @if($transaksi->pembayaran)
+        <x-payment-modal :transaksi="$transaksi" />
+    @endif
 </x-dynamic-component>
