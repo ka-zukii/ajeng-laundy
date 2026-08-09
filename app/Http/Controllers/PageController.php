@@ -70,8 +70,11 @@ class PageController extends Controller
         return view('daftar-reservasi', compact('reservasis'));
     }
 
-    public function detailTransaksi(){
-        return view('detail-transaksi');
+    public function detailTransaksi(string $kodeTransaksi){
+         $transaksi = Transaksi::where('kode_transaksi', $kodeTransaksi)
+            ->with(['pelanggan', 'transaksiDetail.layanan', 'pembayaran'])
+            ->first();
+        return view('detail-transaksi', compact('transaksi'));
     }
 
     public function dashboardPengguna(){

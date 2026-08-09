@@ -1,4 +1,4 @@
-<x-layout>
+<x-landing-page-layout>
     <div class="flex items-center justify-center min-h-[70vh] py-12 px-4 bg-pink-50/40">
         <!-- Wrapper luar dengan border putus-putus biru muda -->
         <div class="p-3 rounded-4xl border-2 border-dashed border-blue-300 max-w-4xl w-full">
@@ -163,4 +163,4 @@
         </div>
 
     </div>
-</x-layout>
+</x-landing-page-layout>
