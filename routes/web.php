@@ -6,19 +6,20 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Middleware\RolePelanggan;
 use App\Models\Transaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', RolePelanggan::class])->group(function () {
     Route::get('/dashboard', [DashboardPelangganController::class, 'index'])->name('dashboard');
 
     Route::get('/dashboard/transaksi/{id}', [TransaksiController::class, 'show'])
         ->name('detail-transaksi');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', RolePelanggan::class])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
