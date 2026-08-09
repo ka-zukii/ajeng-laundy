@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\NodaPakaians;
 
+use App\Enums\UserRole;
 use App\Filament\Resources\NodaPakaians\Pages\CreateNodaPakaian;
 use App\Filament\Resources\NodaPakaians\Pages\EditNodaPakaian;
 use App\Filament\Resources\NodaPakaians\Pages\ListNodaPakaians;
@@ -13,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class NodaPakaianResource extends Resource
@@ -54,5 +56,11 @@ class NodaPakaianResource extends Resource
             'create' => CreateNodaPakaian::route('/create'),
             'edit' => EditNodaPakaian::route('/{record}/edit'),
         ];
+    }
+
+     public static function canViewAny(): bool
+    {
+        $user = Auth::user();
+        return $user?->role === UserRole::OWNER;
     }
 }

@@ -2,19 +2,20 @@
 
 namespace App\Filament\Resources\Transaksis\Tables;
 
+use App\Enums\StatusLaundry;
 use App\Enums\StatusPembayaran;
 use App\Filament\Resources\Pembayarans\PembayaranResource;
+use App\Services\Pembayaran\PaymentService;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Notifications\Notification;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use App\Services\Pembayaran\PaymentService;
-use Filament\Notifications\Notification;
 
 class TransaksisTable
 {
@@ -110,6 +111,51 @@ class TransaksisTable
                     ->label('Edit')
                     ->icon(Heroicon::PencilSquare)
                     ->color('warning'),
+
+                // TOMBOL: UBAH KE DIPROSES
+                Action::make('mark_diproses')
+                    ->label('Proses')
+                    ->icon('heroicon-o-arrow-path')
+                    ->color('info')
+                    ->hidden(fn ($record) => $record->status_laundry !== StatusLaundry::PENDING)
+                    ->requiresConfirmation()
+                    ->modalHeading('Proses Cucian')
+                    ->modalDescription('Apakah Anda yakin ingin memproses transaksi ini? Status akan berubah menjadi "Diproses".')
+                    ->modalSubmitActionLabel('Ya, Proses')
+                    ->action(function ($record) {
+                        $record->update([
+                            'status_laundry' => StatusLaundry::DIPROSES,
+                        ]);
+
+                        Notification::make()
+                            ->title('Status berhasil diperbarui')
+                            ->body('Cucian sekarang sedang diproses.')
+                            ->success()
+                            ->send();
+                    }),
+
+                // TOMBOL: UBAH KE SELESAI
+                Action::make('mark_selesai')
+                    ->label('Selesai')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->hidden(fn ($record) => $record->status_laundry !== StatusLaundry::DIPROSES)
+                    ->requiresConfirmation()
+                    ->modalHeading('Selesaikan Cucian')
+                    ->modalDescription('Apakah Anda yakin cucian ini telah selesai dikerjakan?')
+                    ->modalSubmitActionLabel('Ya, Selesai')
+                    ->action(function ($record) {
+                        $record->update([
+                            'status_laundry' => StatusLaundry::SELESAI,
+                            'tanggal_selesai' => now(),
+                        ]);
+
+                        Notification::make()
+                            ->title('Transaksi Selesai')
+                            ->body('Cucian telah selesai dan waktu penyelesaian telah dicatat.')
+                            ->success()
+                            ->send();
+                    }),
 
                 Action::make('pay')
                     ->label('Pembayaran')

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\UserRole;
 use Database\Factories\UserFactory;
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -15,7 +16,7 @@ use Illuminate\Notifications\Notifiable;
 
 #[Fillable(['username', 'email', 'password', 'role'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable implements HasName
+class User extends Authenticatable implements HasName, FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
@@ -42,8 +43,8 @@ class User extends Authenticatable implements HasName
     public function canAccessPanel(Panel $panel): bool
     {
         return match ($panel->getId()) {
-            'owner' => in_array($this->role, [UserRole::OWNER->value, UserRole::KARYAWAN->value]),
-            // 'customer' => $this->role === UserRole::PELANGGAN->value,
+            'admin' => in_array($this->role, [UserRole::OWNER, UserRole::KARYAWAN]),
+            default => false,
         };
     }
 

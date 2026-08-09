@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Layanans;
 
+use App\Enums\UserRole;
 use App\Filament\Resources\Layanans\Pages\CreateLayanan;
 use App\Filament\Resources\Layanans\Pages\EditLayanan;
 use App\Filament\Resources\Layanans\Pages\ListLayanans;
@@ -13,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class LayananResource extends Resource
@@ -25,7 +27,7 @@ class LayananResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::Sparkles;
 
-     public static function getBreadcrumb(): string
+    public static function getBreadcrumb(): string
     {
         return 'Layanan Laundry';
     }
@@ -54,5 +56,11 @@ class LayananResource extends Resource
             'create' => CreateLayanan::route('/create'),
             'edit' => EditLayanan::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        $user = Auth::user();
+        return $user?->role === UserRole::OWNER;
     }
 }
