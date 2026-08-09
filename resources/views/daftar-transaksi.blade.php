@@ -1,4 +1,4 @@
-<x-layout>
+<x-landing-page-layout>
     <!-- Wrapper utama halaman, diberi background pink-50 (#fdf2f8) -->
     <div class="min-h-screen bg-[#fdf2f8] p-4 sm:p-8 flex items-center justify-center"
         style="font-family: 'Poppins', sans-serif;">
@@ -158,4 +158,4 @@
 
         </div>
     </div>
-</x-layout>
+</x-landing-page-layout>

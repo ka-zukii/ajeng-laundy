@@ -15,7 +15,8 @@
         "laravel/framework": "^13.8",
         "laravel/socialite": "^5.29",
         "laravel/tinker": "^3.0",
-        "midtrans/midtrans-php": "^2.6"
+        "midtrans/midtrans-php": "^2.6",
+        "openspout/openspout": "^4.32"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",
