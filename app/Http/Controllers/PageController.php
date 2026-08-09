@@ -37,7 +37,7 @@ class PageController extends Controller
                 'keyword.starts_with' => 'Format salah! Kode transaksi harus diawali dengan AJL-',
             ]);
 
-            return redirect()->route('transaksi.daftar', ['keyword' => $keyword]);
+            return redirect()->route('transaksi.detail', ['kodeTransaksi' => $keyword]);
         }else {
             $request->validate([
                 'keyword' => ['required', 'numeric']
@@ -47,14 +47,6 @@ class PageController extends Controller
 
             return redirect()->route('reservasi.daftar', ['keyword' => $keyword]);
         }
-    }
-
-    public function daftarTransaksi(Request $request)
-    {
-        $keyword = $request->keyword;
-        $transaksis = Transaksi::where('kode_transaksi', $keyword)->paginate(10);
-        $transaksis->appends(['keyword' => $keyword]);
-        return view('daftar-transaksi', compact('transaksis'));
     }
 
     public function daftarReservasi(Request $request)
