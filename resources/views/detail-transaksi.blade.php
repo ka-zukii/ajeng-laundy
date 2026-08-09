@@ -3,8 +3,29 @@
         Detail Invoice {{ $transaksi->kode_transaksi }} - Ajeng Laundry
     </x-slot>
 
+    @php
+        $detail = $transaksi->transaksiDetail;
+        $statusBayarEnum = $transaksi->pembayaran
+            ? $transaksi->pembayaran->status_pembayaran
+            : \App\Enums\StatusPembayaran::MENGUNGGU;
+
+        $isSudahBayar = $statusBayarEnum === \App\Enums\StatusPembayaran::SUKSES;
+    @endphp
+
     <div class="w-full px-4 py-10 sm:px-8 md:px-16 font-poppins min-h-screen">
         <div class="max-w-5xl mx-auto">
+
+            @if (session('success'))
+                <div
+                    class="mb-6 bg-green-50 border border-green-200 text-green-700 px-5 py-4 rounded-2xl text-sm font-medium">
+                    {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="mb-6 bg-red-50 border border-red-200 text-red-600 px-5 py-4 rounded-2xl text-sm font-medium">
+                    {{ session('error') }}
+                </div>
+            @endif
 
             <div class="text-center mb-10">
                 <h1 class="text-2xl md:text-3xl font-bold text-ajeng-pink tracking-wide">
@@ -133,20 +154,37 @@
                         </div>
                     </div>
 
-                    <div
-                        class="bg-ajeng-white rounded-2xl p-5 shadow-sm border border-ajeng-gray-5 flex justify-between items-center mt-2">
-                        <span class="text-ajeng-black font-bold text-[15px]">Metode Pembayaran</span>
-                        <span class="text-ajeng-black font-bold text-[15px]">QRIS</span>
-                    </div>
+                    @if (!$isSudahBayar)
+                        <button type="button" onclick="openModal()"
+                            class="w-full bg-ajeng-white rounded-2xl p-5 shadow-sm border-2 border-ajeng-pink hover:bg-ajeng-bg-pink-1 transition-all flex justify-between items-center cursor-pointer group">
+                            <span class="text-ajeng-black font-bold text-[15px]">Metode Pembayaran</span>
+                            <span class="text-ajeng-pink font-bold text-[15px] flex items-center gap-2">
+                                Pilih Pembayaran
+                                <x-heroicon-m-chevron-right
+                                    class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </span>
+                        </button>
+                    @else
+                        <div
+                            class="w-full bg-ajeng-gray-5 rounded-2xl p-5 shadow-sm border border-ajeng-gray-4 flex justify-between items-center opacity-75 cursor-not-allowed">
+                            <span class="text-ajeng-gray-2 font-bold text-[15px]">Metode Pembayaran</span>
+                            <span class="text-green-600 font-bold text-[15px] flex items-center gap-1.5">
+                                <x-heroicon-s-check-circle class="w-5 h-5" />
+                                Lunas ({{ strtoupper($transaksi->pembayaran->payment_type ?? 'QRIS') }})
+                            </span>
+                        </div>
+                    @endif
 
+                    {{-- TOMBOL AKSI --}}
                     <div class="flex flex-col gap-3 mt-2">
                         <a href="{{ route('pelanggan.invoice.download', $transaksi->kode_transaksi) }}"
-                            class="w-full bg-blue-500 hover:bg-blue-400 text-ajeng-white font-bold text-center py-4 rounded-xl transition-colors shadow-sm">
-                            Download Invoice
+                            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-center py-4 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2">
+                            <x-heroicon-o-arrow-down-tray class="w-5 h-5" />
+                            Download Invoice PDF
                         </a>
-                        <a href="#"
-                            class="w-full bg-ajeng-pink hover:bg-ajeng-pink/50 text-ajeng-white font-bold text-center py-4 rounded-xl transition-colors shadow-sm">
-                            Cek Proses
+                        <a href="{{ url('/') }}"
+                            class="w-full bg-ajeng-pink hover:bg-[#e36685] text-white font-bold text-center py-4 rounded-xl transition-colors shadow-sm">
+                            Kembali ke Beranda
                         </a>
                     </div>
 
@@ -155,4 +193,8 @@
             </div>
         </div>
     </div>
+
+    @if ($transaksi->pembayaran)
+        <x-payment-modal :transaksi="$transaksi" />
+    @endif
 </x-pelanggan-layout>
