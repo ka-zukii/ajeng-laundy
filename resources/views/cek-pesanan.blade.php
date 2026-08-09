@@ -1,4 +1,4 @@
-<x-layout>
+<x-landing-page-layout>
 
     <section class="bg-primary-50 text-slate-800 antialiased min-h-screen flex items-center justify-center">
         <div class="bg-primary-50 py-14 sm:py-20 px-4 w-full">
@@ -10,13 +10,13 @@
                     {{-- Pill badge --}}
                     <div class="flex justify-center">
                         <span
-                            class="inline-block bg-primary text-white text-xs font-semibold tracking-wide px-5 py-2 rounded-full">
+                            class="inline-block bg-ajeng-pink text-white text-xs font-semibold tracking-wide px-5 py-2 rounded-full">
                             Cek Cucian
                         </span>
                     </div>
 
                     {{-- Heading --}}
-                    <h1 class="font-hand text-primary text-center text-5xl sm:text-6xl mt-4 mb-2">
+                    <h1 class="font-hand text-ajeng-pink text-center text-5xl sm:text-6xl mt-4 mb-2">
                         Cek Cucian Kamu !
                     </h1>
 
@@ -37,7 +37,7 @@
                                 Cek Reservasi
                             </button>
                             <button type="button" id="tabTransaksi" onclick="switchTab('transaksi')"
-                                class="tab-btn text-sm font-semibold rounded-full py-3 transition-colors bg-primary text-white shadow-sm"
+                                class="tab-btn text-sm font-semibold rounded-full py-3 transition-colors bg-ajeng-pink text-white shadow-sm"
                                 role="tab" aria-selected="true">
                                 Cek Transaksi
                             </button>
@@ -50,14 +50,22 @@
                         {{-- Input Field --}}
                         <div class="relative mb-2">
                             <span
-                                class="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-primary-100 text-primary">
-                                <i class="fa-solid fa-receipt text-sm"></i>
+                                class="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full bg-ajeng-pink text-white">
+
+                                <span id="iconTransaksi" class="block">
+                                    <x-heroicon-o-receipt-percent class="w-5 h-5" />
+                                </span>
+
+                                <span id="iconReservasi" class="hidden">
+                                    <x-heroicon-o-phone class="w-5 h-5" />
+                                </span>
+
                             </span>
 
-                            {{-- NAME diubah jadi "keyword", value dipertahankan saat validasi error --}}
                             <input type="text" name="keyword" id="inputField" value="{{ old('keyword') }}"
                                 placeholder="Invoice ID pesanan kamu"
-                                class="w-full border @error('keyword') border-red-400 focus:ring-red-400 focus:border-red-400 @else @enderror rounded-full py-3.5 pl-14 pr-5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 transition-all">
+                                class="w-full border rounded-full py-3.5 pl-14 pr-5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 transition-all
+                                @error('keyword') border-red-400 focus:ring-red-400 focus:border-red-400 @else border-ajeng-gray-4 focus:border-ajeng-pink focus:ring-ajeng-pink/30 @enderror">
                         </div>
 
                         {{-- Menampilkan pesan error validasi Laravel --}}
@@ -69,7 +77,7 @@
 
                         {{-- Submit Button --}}
                         <button type="submit"
-                            class="w-full bg-primary hover:bg-primary-600 text-white font-semibold text-sm rounded-full py-4 shadow-md shadow-primary/30 transition-colors">
+                            class="w-full bg-ajeng-pink hover:bg-ajeng-pink/60 text-white font-semibold text-sm rounded-full py-4 shadow-md shadow-primary/30 transition-colors">
                             Cek Pesanan ku
                         </button>
                     </form>
@@ -88,56 +96,10 @@
                 {{-- Below-card link --}}
                 <p class="text-center text-sm font-medium text-slate-700 mt-6">
                     Belum memesan ?
-                    <a href="{{ url('/layanan') }}" class="text-primary font-semibold hover:underline">Laundry
+                    <a href="{{ url('/layanan') }}" class="text-ajeng-pink font-semibold hover:underline">Laundry
                         Disini</a>
                 </p>
             </div>
         </div>
     </section>
-
-    {{-- Script JS --}}
-    <script>
-        function switchTab(tab) {
-            const tabReservasi = document.getElementById('tabReservasi');
-            const tabTransaksi = document.getElementById('tabTransaksi');
-            const tipePencarian = document.getElementById('tipePencarian');
-            const inputField = document.getElementById('inputField');
-
-            const activeClasses = ['bg-primary', 'text-white', 'shadow-sm'];
-            const inactiveClasses = ['text-slate-500', 'hover:text-slate-700'];
-
-            if (tab === 'reservasi') {
-                tabReservasi.classList.add(...activeClasses);
-                tabReservasi.classList.remove(...inactiveClasses);
-                tabReservasi.setAttribute('aria-selected', 'true');
-
-                tabTransaksi.classList.remove(...activeClasses);
-                tabTransaksi.classList.add(...inactiveClasses);
-                tabTransaksi.setAttribute('aria-selected', 'false');
-
-                inputField.placeholder = 'Masukkan nomor telepon WhatsApp';
-                inputField.type = 'number'; // Mengubah keyboard HP jadi angka
-            } else {
-                tabTransaksi.classList.add(...activeClasses);
-                tabTransaksi.classList.remove(...inactiveClasses);
-                tabTransaksi.setAttribute('aria-selected', 'true');
-
-                tabReservasi.classList.remove(...activeClasses);
-                tabReservasi.classList.add(...inactiveClasses);
-                tabReservasi.setAttribute('aria-selected', 'false');
-
-                inputField.placeholder = 'Invoice ID pesanan kamu';
-                inputField.type = 'text'; // Mengubah keyboard HP jadi normal
-            }
-
-            tipePencarian.value = tab;
-        }
-
-        // Menjaga agar tampilan form (tab) sesuai saat di-redirect kembali akibat validasi error
-        window.addEventListener('load', () => {
-            const currentTab = document.getElementById('tipePencarian').value;
-            switchTab(currentTab);
-        });
-    </script>
-
-</x-layout>
+</x-landing-page-layout>

@@ -38,7 +38,7 @@
         @endguest
 
         @auth
-            <a href="/dashboard" class="text-ajeng-black hover:text-ajeng-pink transition-colors">Masuk</a>
+            <a href="/dashboard" class="text-ajeng-black hover:text-ajeng-pink transition-colors">Dashboard</a>
         @endauth
 
         <a href=""
