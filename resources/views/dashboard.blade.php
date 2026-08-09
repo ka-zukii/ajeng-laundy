@@ -8,19 +8,23 @@
 
             <div class="lg:col-span-1 flex flex-col gap-8">
 
-                <div class="bg-ajeng-white rounded-2xl shadow-sm border border-ajeng-gray-4 overflow-hidden transition-all hover:shadow-md">
+                <div
+                    class="bg-ajeng-white rounded-2xl shadow-sm border border-ajeng-gray-4 overflow-hidden transition-all hover:shadow-md">
                     <div class="bg-ajeng-pink px-6 py-5">
                         <h2 class="text-ajeng-white font-bold text-xl tracking-wide flex items-center gap-2">
                             Halo! {{ $pelanggan->nama ?? $user->username }}
                         </h2>
                     </div>
-                    <div class="p-6 flex flex-col items-center text-center bg-linear-to-b from-ajeng-bg-pink-2 to-ajeng-white">
-                        <div class="w-16 h-16 bg-ajeng-bg-pink-1 rounded-full flex items-center justify-center mb-4 text-ajeng-pink border border-ajeng-pink/20">
+                    <div
+                        class="p-6 flex flex-col items-center text-center bg-linear-to-b from-ajeng-bg-pink-2 to-ajeng-white">
+                        <div
+                            class="w-16 h-16 bg-ajeng-bg-pink-1 rounded-full flex items-center justify-center mb-4 text-ajeng-pink border border-ajeng-pink/20">
                             <x-heroicon-o-sparkles class="w-8 h-8" />
                         </div>
                         <h3 class="text-lg font-bold text-ajeng-black mb-1">Selamat Datang Kembali!</h3>
                         <p class="text-sm text-ajeng-gray-1 leading-relaxed">
-                            Pantau status cucianmu secara <span class="italic">real-time</span> dan nikmati layanan laundry terbaik. Semua riwayat transaksimu tersimpan rapi di sini.
+                            Pantau status cucianmu secara <span class="italic">real-time</span> dan nikmati layanan
+                            laundry terbaik. Semua riwayat transaksimu tersimpan rapi di sini.
                         </p>
                     </div>
                 </div>
@@ -64,12 +68,13 @@
             <div class="lg:col-span-2">
 
                 <div class="bg-ajeng-white rounded-2xl shadow-sm border border-ajeng-gray-4 p-6 lg:p-8">
-                    
+
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-8">
                         <h2 class="font-bold text-ajeng-black text-2xl tracking-tight">Riwayat Transaksi</h2>
 
                         <form class="w-full sm:w-[320px]" onsubmit="return false;">
-                            <div class="flex items-center p-1 bg-ajeng-white border border-ajeng-pink/50 rounded-full focus-within:border-ajeng-pink focus-within:ring-4 focus-within:ring-ajeng-bg-pink-1 transition-all">
+                            <div
+                                class="flex items-center p-1 bg-ajeng-white border border-ajeng-pink/50 rounded-full focus-within:border-ajeng-pink focus-within:ring-4 focus-within:ring-ajeng-bg-pink-1 transition-all">
 
                                 <div class="bg-ajeng-pink text-ajeng-white p-2 rounded-full shrink-0">
                                     <x-heroicon-o-receipt-percent class="w-5 h-5" />
@@ -89,7 +94,8 @@
                                     <th class="px-5 py-4 font-semibold whitespace-nowrap">Tanggal</th>
                                     <th class="px-5 py-4 font-semibold whitespace-nowrap">Total Biaya</th>
                                     <th class="px-5 py-4 font-semibold whitespace-nowrap">Laundry</th>
-                                    <th class="px-5 py-4 font-semibold whitespace-nowrap text-center rounded-tr-xl">Aksi</th>
+                                    <th class="px-5 py-4 font-semibold whitespace-nowrap text-center rounded-tr-xl">Aksi
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-ajeng-gray-4 border-b border-ajeng-gray-4">
@@ -108,12 +114,13 @@
                                             {{ $trx->total_biaya ? 'Rp ' . number_format($trx->total_biaya, 0, ',', '.') : 'Menunggu' }}
                                         </td>
 
-                                        <td class="px-5 py-4 text-ajeng-dark-1 whitespace-nowrap capitalize">
-                                            {{ $trx->status_laundry }}
+                                        <td class="px-5 py-4 whitespace-nowrap">
+                                            <x-status-badge :color="$trx->status_laundry->color()" :label="$trx->status_laundry->label()" />
                                         </td>
 
                                         <td class="px-5 py-4 whitespace-nowrap text-center">
-                                            <a href="#" class="text-ajeng-pink font-medium hover:underline">
+                                            <a href="{{ route('detail-transaksi', $trx->id) }}"
+                                                class="text-ajeng-pink font-medium hover:underline">
                                                 Detail
                                             </a>
                                         </td>
@@ -123,8 +130,10 @@
                                         <td colspan="5" class="px-5 py-16 text-center">
                                             <div class="flex flex-col items-center justify-center text-ajeng-gray-2">
                                                 <x-heroicon-o-inbox class="w-16 h-16 mb-4 text-ajeng-gray-3" />
-                                                <span class="font-medium text-ajeng-dark-1 text-base">Belum ada riwayat transaksi cucian.</span>
-                                                <p class="text-sm mt-1 text-ajeng-gray-1">Pesanan laundry Anda akan otomatis muncul di sini.</p>
+                                                <span class="font-medium text-ajeng-dark-1 text-base">Belum ada riwayat
+                                                    transaksi cucian.</span>
+                                                <p class="text-sm mt-1 text-ajeng-gray-1">Pesanan laundry Anda akan
+                                                    otomatis muncul di sini.</p>
                                             </div>
                                         </td>
                                     </tr>
