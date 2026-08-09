@@ -52,6 +52,10 @@ Route::get(
     PaymentController::class,
 )->name('payment');
 
+Route::post('/payment/{id}/proses', [PaymentController::class, 'proses'])->name('payment.proses');
+Route::get('/payment/instruksi/{pembayaranId}', [PaymentController::class, 'instruksi'])->name('pembayaran.instruksi');
+Route::get('/payment/check-status/{pembayaranId}', [PaymentController::class, 'checkStatus'])->name('payment.check-status');
+
 // Reservation routes
 Route::resource('/reservation', ReservationController::class);
 Route::get('/reservation/success/{id}', [ReservationController::class, 'success'])->name('reservation.success');
