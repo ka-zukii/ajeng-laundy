@@ -140,8 +140,8 @@
                     </div>
 
                     <div class="flex flex-col gap-3 mt-2">
-                        <a href="#"
-                            class="w-full bg-blue-300 hover:bg-blue-200 text-ajeng-white font-bold text-center py-4 rounded-xl transition-colors shadow-sm">
+                        <a href="{{ route('pelanggan.invoice.download', $transaksi->kode_transaksi) }}"
+                            class="w-full bg-blue-500 hover:bg-blue-400 text-ajeng-white font-bold text-center py-4 rounded-xl transition-colors shadow-sm">
                             Download Invoice
                         </a>
                         <a href="#"

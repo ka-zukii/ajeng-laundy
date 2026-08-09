@@ -77,7 +77,7 @@
                                     </span>
                                 </td>
                                 <td class="py-4 px-6 border-b border-pink-100">
-                                    <a href=""
+                                    <a href="{{ route('transaksi.detail', $transaksi->kode_transaksi) }}"
                                         class="text-[#f472b6] font-medium hover:text-pink-600 hover:underline transition">Detail</a>
                                 </td>
                             </tr>
