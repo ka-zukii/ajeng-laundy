@@ -44,7 +44,6 @@ Route::post('/cek-pesanan/proses', [PageController::class, 'prosesCekPesanan'])-
 Route::get('/detail-transaksi/{kodeTransaksi}', [PageController::class, 'detailTransaksi'])->name('transaksi.detail');
 
 // Hasil Pencarian
-Route::get('/daftar-transaksi', [PageController::class, 'daftarTransaksi'])->name('transaksi.daftar');
 Route::get('/daftar-reservasi', [PageController::class, 'daftarReservasi'])->name('reservasi.daftar');
 
 // Payment route
