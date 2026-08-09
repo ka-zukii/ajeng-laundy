@@ -16,15 +16,12 @@ class RevenueChart extends ChartWidget
     protected function getData(): array
     {
         $currentYear = now()->year;
-
-        // PERBAIKAN: Mengubah kolom acuan dari 'tanggal_selesai' menjadi 'tanggal_masuk'
         $monthlyRevenue = Transaksi::query()
             ->select(
                 DB::raw('MONTH(tanggal_masuk) as month'),
                 DB::raw('SUM(total_biaya) as total')
             )
             ->whereYear('tanggal_masuk', $currentYear)
-            // Filter berdasarkan pembayaran yang sudah SUKSES
             ->whereHas('pembayaran', function ($query) {
                 $query->where('status_pembayaran', StatusPembayaran::SUKSES->value);
             })
@@ -35,7 +32,6 @@ class RevenueChart extends ChartWidget
         $months = [];
         $revenues = [];
 
-        // Petakan hasil query ke struktur array 12 bulan
         foreach (range(1, 12) as $monthNumber) {
             $months[] = Carbon::create()->month($monthNumber)->format('M');
             $revenues[] = $monthlyRevenue[$monthNumber] ?? 0;

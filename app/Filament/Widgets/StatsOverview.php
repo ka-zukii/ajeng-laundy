@@ -22,22 +22,18 @@ class StatsOverview extends StatsOverviewWidget
                 ->description('Jumlah total pengguna yang terdaftar di sistem.')
                 ->descriptionIcon('heroicon-m-user')
                 ->color('primary'),
-
             Stat::make('Transaksi', Transaksi::query()->count())
                 ->description('Jumlah total transaksi yang telah dilakukan.')
                 ->descriptionIcon('heroicon-m-receipt-percent')
                 ->color('success'),
-
             Stat::make(
                 'Pendapatan',
                 Number::currency(
                     Transaksi::query()
-                        // PERBAIKAN 1: Menggunakan acuan 'tanggal_masuk' agar transaksi pending berbayar tetap terhitung
                         ->whereBetween('tanggal_masuk', [
                             now()->startOfMonth(),
                             now()->endOfMonth(),
                         ])
-                        // PERBAIKAN 2: Hanya menghitung transaksi yang status pembayarannya SUKSES
                         ->whereHas('pembayaran', function ($query) {
                             $query->where('status_pembayaran', StatusPembayaran::SUKSES->value);
                         })
@@ -49,10 +45,9 @@ class StatsOverview extends StatsOverviewWidget
                 ->description('Total pendapatan bulan ini.')
                 ->descriptionIcon('heroicon-m-banknotes')
                 ->color('warning'),
-
             Stat::make('Cucian Diproses', Transaksi::whereStatusLaundry(StatusLaundry::DIPROSES)->count())
                 ->description('Jumlah cucian yang sedang dalam proses.')
-                ->descriptionIcon('heroicon-m-arrow-path') // Menggunakan icon rotasi/proses agar lebih relevan
+                ->descriptionIcon('heroicon-m-arrow-path')
                 ->color('info'),
         ];
     }
