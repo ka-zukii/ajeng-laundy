@@ -32,7 +32,7 @@ class DurationEvaluator
             'z' => self::NORMAL
         ];
 
-        // R3: JIKA Antrean SEDIKIT & Beban BERAT -> NORMAL (Antrean kosong, beban berat tetap bisa dikebut)
+        // R3: JIKA Antrean SEDIKIT & Beban BERAT -> NORMAL
         $rules[] = [
             'w' => min($muAntrean['sedikit'], $muBeban['berat']),
             'z' => self::NORMAL
@@ -50,13 +50,13 @@ class DurationEvaluator
             'z' => self::LAMA
         ];
 
-        // R6: JIKA Antrean BANYAK -> LAMA (Faktor paling krusial, berapapun bebannya pasti lama)
+        // R6: JIKA Antrean BANYAK -> LAMA
         $rules[] = [
             'w' => $muAntrean['banyak'],
             'z' => self::LAMA
         ];
 
-        // R7: JIKA Kekotoran TINGGI & Beban SEDANG/BERAT -> LAMA (Baju super kotor butuh waktu ekstra)
+        // R7: JIKA Kekotoran TINGGI & Beban SEDANG/BERAT -> LAMA
         $rules[] = [
             'w' => min($muKekotoran['tinggi'], max($muBeban['sedang'], $muBeban['berat'])),
             'z' => self::LAMA
@@ -77,6 +77,8 @@ class DurationEvaluator
 
     private function fuzzifyAntrean(int $x): array
     {
+        // Limit ini tidak diubah karena yang dioper sekarang adalah 'Beban per Mesin'
+        // Jadi batas 20 di bawah ini artinya "1 Mesin memegang 20 antrean sendirian" (Total 100 antrean di toko)
         return [
             'sedikit' => FuzzyMath::linearTurun($x, 3, 7),
             'sedang'  => FuzzyMath::segitiga($x, 5, 10, 15),

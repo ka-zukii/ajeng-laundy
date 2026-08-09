@@ -57,7 +57,7 @@
                             <input type="text" name="keyword" id="inputField" value="{{ old('keyword') }}"
                                 placeholder="Invoice ID pesanan kamu"
                                 class="w-full border rounded-full py-3.5 pl-14 pr-5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 transition-all
-                                @error('keyword') border-red-400 focus:ring-red-400 focus:border-red-400 @else border-ajeng-gray-4 focus:border-ajeng-pink focus:ring-ajeng-pink/30 @enderror">
+                                @error('keyword') border-red-400 focus:ring-red-400 focus:border-red-400 @else @enderror">
                         </div>
 
                         @error('keyword')

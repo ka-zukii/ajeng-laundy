@@ -1,4 +1,8 @@
-<x-pelanggan-layout>
+@php
+    $layoutName = auth()->check() ? 'pelanggan-layout' : 'landing-page-layout';
+@endphp
+
+<x-dynamic-component :component="$layoutName">
     <x-slot:title>
         Detail Invoice {{ $transaksi->kode_transaksi }} - Ajeng Laundry
     </x-slot>
@@ -38,6 +42,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
 
+                <!-- RINCIAN CUCIAN -->
                 <div class="lg:col-span-5 bg-ajeng-white rounded-3xl p-6 md:p-8 shadow-sm border border-ajeng-gray-5">
                     <h2 class="text-lg font-bold text-ajeng-black mb-6">Rincian Cucian</h2>
 
@@ -45,7 +50,6 @@
 
                         <div
                             class="shrink-0 w-24 h-24 bg-ajeng-bg-pink-1 rounded-2xl flex items-center justify-center border border-ajeng-pink/20">
-
                             <x-heroicon-o-shopping-bag class="w-12 h-12 text-ajeng-pink" />
                         </div>
 
@@ -85,6 +89,7 @@
                     </div>
                 </div>
 
+                <!-- RINCIAN PESANAN -->
                 <div class="lg:col-span-7 flex flex-col gap-6">
 
                     <div class="bg-ajeng-bg-pink-2 rounded-3xl p-6 md:p-8 shadow-sm">
@@ -193,8 +198,4 @@
             </div>
         </div>
     </div>
-
-    @if ($transaksi->pembayaran)
-        <x-payment-modal :transaksi="$transaksi" />
-    @endif
-</x-pelanggan-layout>
+</x-dynamic-component>
