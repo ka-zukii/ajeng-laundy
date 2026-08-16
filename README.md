@@ -63,3 +63,10 @@
     npm run dev
     php artisan serve
     ```
+
+#### Untuk memahami lebih dalam mengenai arsitektur, database, dan cara kerja sistem pakar pada aplikasi ini, silakan baca dokumentasi berikut:
+
+- [📖 Logika Sistem Pakar (Fuzzy Logic)](documentation/01_logika_sistem_pakar.md)
+- [🏗️ Arsitektur & Pola Kode](documentation/02_arsitektur_dan_kode.md)
+- [🗄️ Struktur Database (ERD)](documentation/03_struktur_database.md)
+- [💻 Panduan Penggunaan Sistem](documentation/04_panduan_penggunaan.md)
