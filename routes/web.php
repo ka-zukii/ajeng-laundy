@@ -14,10 +14,10 @@ use Illuminate\Http\Request;
 
 Route::middleware(['auth', RolePelanggan::class])->group(function () {
     Route::get('/dashboard', [DashboardPelangganController::class, 'index'])->name('dashboard');
-
-    Route::get('/dashboard/transaksi/{id}', [TransaksiController::class, 'show'])
-        ->name('detail-transaksi');
 });
+
+Route::get('/dashboard/transaksi/{id}', [TransaksiController::class, 'show'])
+    ->name('detail-transaksi');
 
 Route::middleware(['auth', RolePelanggan::class])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -28,8 +28,8 @@ Route::middleware(['auth', RolePelanggan::class])->group(function () {
 // Download invoice route
 Route::get('/invoice/{kode_transaksi}/download', function ($kode_transaksi) {
     $transaksi = Transaksi::with(['pelanggan', 'transaksiDetail.layanan', 'pembayaran'])
-                    ->where('kode_transaksi', $kode_transaksi)
-                    ->firstOrFail();
+        ->where('kode_transaksi', $kode_transaksi)
+        ->firstOrFail();
     $pdf = Pdf::loadView('pdf.invoice-pelanggan', ['transaksi' => $transaksi]);
     return $pdf->download("Invoice-{$transaksi->kode_transaksi}.pdf");
 })->name('pelanggan.invoice.download');

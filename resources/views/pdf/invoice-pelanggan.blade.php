@@ -131,7 +131,7 @@
         </tr>
         <tr>
             <td><strong>Metode Bayar</strong></td>
-            <td>: QRIS</td>
+            <td>: MIDTRANS</td>
             <td><strong>Pembayaran</strong></td>
             <td>: {{ $transaksi->pembayaran ? $transaksi->pembayaran->status_pembayaran->label() : 'Menunggu' }}</td>
         </tr>

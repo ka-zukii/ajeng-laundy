@@ -63,9 +63,8 @@ class PageController extends Controller
     }
 
     public function detailTransaksi(string $kodeTransaksi){
-         $transaksi = Transaksi::where('kode_transaksi', $kodeTransaksi)
-            ->with(['pelanggan', 'transaksiDetail.layanan', 'pembayaran'])
-            ->first();
+        // @dd($kodeTransaksi);
+        $transaksi = Transaksi::with(['transaksiDetail.layanan', 'pelanggan', 'pembayaran'])->where('kode_transaksi', $kodeTransaksi)->firstOrFail();
         return view('detail-transaksi', compact('transaksi'));
     }
 
