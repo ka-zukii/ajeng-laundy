@@ -70,3 +70,9 @@
 - [🏗️ Arsitektur & Pola Kode](documentation/02_arsitektur_dan_kode.md)
 - [🗄️ Struktur Database (ERD)](documentation/03_struktur_database.md)
 - [💻 Panduan Penggunaan Sistem](documentation/04_panduan_penggunaan.md)
+
+## Flyer Ajeng Laundry
+
+<p align="center">
+  <img src="documentation/media/Flyer_AjengLaundry.jpg" alt="Flyer Ajeng Laundry" width="100%">
+</p>
